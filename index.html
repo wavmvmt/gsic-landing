@@ -1933,6 +1933,52 @@ const speakerData = {
 
 let currentOpenSpeaker = null;
 let currentOpenRow = null;
+let mobileExpandEl = null;
+
+function isMobileLayout() {
+  return window.innerWidth <= 900;
+}
+
+function buildExpandContent(data) {
+  const inner = document.createElement('div');
+  inner.className = 'expand-inner';
+
+  const photo = document.createElement('img');
+  photo.className = 'expand-photo';
+  photo.src = data.photo;
+  photo.alt = data.name;
+
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'expand-content';
+
+  const title = document.createElement('p');
+  title.className = 'expand-title';
+  title.textContent = data.title;
+
+  const name = document.createElement('h3');
+  name.className = 'expand-name';
+  name.textContent = data.name;
+
+  const subtitle = document.createElement('p');
+  subtitle.className = 'expand-subtitle';
+  subtitle.textContent = data.subtitle;
+
+  const bioDiv = document.createElement('div');
+  bioDiv.className = 'expand-bio';
+  data.bio.split('\n\n').forEach(para => {
+    const p = document.createElement('p');
+    p.textContent = para;
+    bioDiv.appendChild(p);
+  });
+
+  contentDiv.appendChild(title);
+  contentDiv.appendChild(name);
+  contentDiv.appendChild(subtitle);
+  contentDiv.appendChild(bioDiv);
+  inner.appendChild(photo);
+  inner.appendChild(contentDiv);
+  return inner;
+}
 
 // Click handler for speaker cards
 document.querySelectorAll('.speaker-card[data-speaker]').forEach(card => {
@@ -1942,70 +1988,50 @@ document.querySelectorAll('.speaker-card[data-speaker]').forEach(card => {
     const data = speakerData[id];
     if (!data) return;
 
-    // If clicking same speaker, close it
     if (currentOpenSpeaker === id) {
       closeExpand();
       return;
     }
 
-    // Close any open panel first
     closeExpand();
 
-    // Build expand content using safe DOM methods
-    const panel = document.getElementById('expand-row-' + row);
-    const inner = document.getElementById('expand-inner-' + row);
-    inner.textContent = '';
+    if (isMobileLayout()) {
+      // Mobile: insert expand panel directly after the clicked card
+      mobileExpandEl = document.createElement('div');
+      mobileExpandEl.className = 'speaker-expand';
+      mobileExpandEl.appendChild(buildExpandContent(data));
+      card.after(mobileExpandEl);
 
-    const photo = document.createElement('img');
-    photo.className = 'expand-photo';
-    photo.src = data.photo;
-    photo.alt = data.name;
+      requestAnimationFrame(() => {
+        mobileExpandEl.classList.add('open');
+        card.classList.add('active');
+        currentOpenSpeaker = id;
+        currentOpenRow = 'mobile';
+        setTimeout(() => mobileExpandEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+      });
+    } else {
+      // Desktop: use fixed row panels
+      const panel = document.getElementById('expand-row-' + row);
+      const inner = document.getElementById('expand-inner-' + row);
+      inner.textContent = '';
+      inner.replaceWith(buildExpandContent(data));
 
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'expand-content';
-
-    const title = document.createElement('p');
-    title.className = 'expand-title';
-    title.textContent = data.title;
-
-    const name = document.createElement('h3');
-    name.className = 'expand-name';
-    name.textContent = data.name;
-
-    const subtitle = document.createElement('p');
-    subtitle.className = 'expand-subtitle';
-    subtitle.textContent = data.subtitle;
-
-    const bioDiv = document.createElement('div');
-    bioDiv.className = 'expand-bio';
-    data.bio.split('\n\n').forEach(para => {
-      const p = document.createElement('p');
-      p.textContent = para;
-      bioDiv.appendChild(p);
-    });
-
-    contentDiv.appendChild(title);
-    contentDiv.appendChild(name);
-    contentDiv.appendChild(subtitle);
-    contentDiv.appendChild(bioDiv);
-
-    inner.appendChild(photo);
-    inner.appendChild(contentDiv);
-
-    // Open panel
-    requestAnimationFrame(() => {
-      panel.classList.add('open');
-      card.classList.add('active');
-      currentOpenSpeaker = id;
-      currentOpenRow = row;
-      // Scroll panel into view
-      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-    });
+      requestAnimationFrame(() => {
+        panel.classList.add('open');
+        card.classList.add('active');
+        currentOpenSpeaker = id;
+        currentOpenRow = row;
+        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+      });
+    }
   });
 });
 
 function closeExpand() {
-  if (currentOpenRow) {
+  if (currentOpenRow === 'mobile' && mobileExpandEl) {
+    mobileExpandEl.remove();
+    mobileExpandEl = null;
+  } else if (currentOpenRow) {
     document.getElementById('expand-row-' + currentOpenRow).classList.remove('open');
   }
   document.querySelectorAll('.speaker-card.active').forEach(c => c.classList.remove('active'));
