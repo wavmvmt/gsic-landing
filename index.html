@@ -353,7 +353,7 @@
   }
 
   /* ── TOPICS ── */
-  .topics { background: rgba(1,4,21,0.5); }
+  .topics { background: transparent; }
 
   .topic-block {
     position: relative;
@@ -361,7 +361,7 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
   .topic-block:nth-child(even) .topic-content { margin-left: auto; }
@@ -370,31 +370,23 @@
     position: absolute;
     inset: 0;
     z-index: 1;
+    opacity: 0.15;
   }
 
   .topic-bg-1 {
-    background:
-      radial-gradient(ellipse 70% 80% at 70% 50%, rgba(212,175,55,0.15) 0%, transparent 70%),
-      linear-gradient(135deg, #0a0800 0%, #1a1000 50%, #010415 100%);
+    background: radial-gradient(ellipse 70% 80% at 70% 50%, rgba(212,175,55,0.4) 0%, transparent 70%);
   }
 
   .topic-bg-2 {
-    background:
-      radial-gradient(ellipse 70% 80% at 30% 50%, rgba(140,20,20,0.2) 0%, transparent 70%),
-      linear-gradient(135deg, #0a0010 0%, #150520 50%, #010415 100%);
+    background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(180,30,30,0.4) 0%, transparent 70%);
   }
 
   .topic-bg-3 {
-    background:
-      radial-gradient(ellipse 70% 80% at 70% 50%, rgba(30,60,180,0.15) 0%, transparent 70%),
-      linear-gradient(135deg, #000818 0%, #000b2a 50%, #010415 100%);
+    background: radial-gradient(ellipse 70% 80% at 70% 50%, rgba(40,80,220,0.4) 0%, transparent 70%);
   }
 
   .topic-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(1,4,21,0.65) 0%, rgba(1,4,21,0.25) 50%, rgba(1,4,21,0.65) 100%);
-    z-index: 2;
+    display: none;
   }
 
   .topic-content {
@@ -402,6 +394,8 @@
     z-index: 3;
     padding: 60px 80px;
     max-width: 560px;
+    background: rgba(1,4,21,0.5);
+    border-radius: 4px;
   }
 
   .topic-tag {
@@ -434,14 +428,14 @@
   }
 
   .divider-line {
-    background: rgba(6,11,31,0.5);
+    background: rgba(6,11,31,0.25);
     padding: 18px 80px;
     font-family: 'Oswald', sans-serif;
     font-style: italic;
     font-size: 18px;
     font-weight: 300;
     letter-spacing: 2px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.7);
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.05);
     border-bottom: 1px solid rgba(255,255,255,0.05);
