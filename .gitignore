@@ -5,3 +5,4 @@
 *.avi
 node_modules/
 .vercel/
+.vercel

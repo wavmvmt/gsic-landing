@@ -606,6 +606,106 @@
     margin-top: 20px;
   }
 
+  /* ── SPEAKER MODAL ── */
+  .speaker-modal {
+    border: none;
+    background: var(--card);
+    color: var(--white);
+    max-width: 680px;
+    width: 90vw;
+    max-height: 85vh;
+    border-radius: 4px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .speaker-modal::backdrop {
+    background: rgba(1,4,21,0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-inner {
+    overflow-y: auto;
+    max-height: 85vh;
+    padding: 48px 40px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10;
+    transition: color .2s;
+    line-height: 1;
+  }
+
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-header {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .modal-photo {
+    width: 140px;
+    height: 180px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .modal-header-text {
+    flex: 1;
+  }
+
+  .modal-speaker-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .modal-speaker-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .modal-speaker-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .modal-bio {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .modal-bio p { margin-bottom: 16px; }
+
+  @media (max-width: 600px) {
+    .modal-inner { padding: 36px 24px; }
+    .modal-header { flex-direction: column; align-items: center; text-align: center; }
+    .modal-photo { width: 120px; height: 150px; }
+    .modal-speaker-name { font-size: 36px; }
+  }
+
   /* ── WHY NOW ── */
   .why-now {
     background: rgba(4,6,20,0.9);
@@ -1082,8 +1182,8 @@
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-inner">
-    &nbsp; DAVID ICKE &nbsp;·&nbsp; BILLY CARSON &nbsp;·&nbsp; CATHY O'BRIEN &nbsp;·&nbsp; DR. MICHAEL SALLA &nbsp;·&nbsp; ELENA DANAAN &nbsp;·&nbsp; EMERY SMITH &nbsp;·&nbsp; JP &nbsp;·&nbsp; PRAVEEN MOHAN &nbsp;·&nbsp; TONY RODRIGUES &nbsp;·&nbsp; MAX LOWEN &nbsp;·&nbsp; NICKY ALAN &nbsp;·&nbsp;
-    &nbsp; DAVID ICKE &nbsp;·&nbsp; BILLY CARSON &nbsp;·&nbsp; CATHY O'BRIEN &nbsp;·&nbsp; DR. MICHAEL SALLA &nbsp;·&nbsp; ELENA DANAAN &nbsp;·&nbsp; EMERY SMITH &nbsp;·&nbsp; JP &nbsp;·&nbsp; PRAVEEN MOHAN &nbsp;·&nbsp; TONY RODRIGUES &nbsp;·&nbsp; MAX LOWEN &nbsp;·&nbsp; NICKY ALAN &nbsp;·&nbsp;
+    &nbsp; DAVID ICKE &nbsp;·&nbsp; BILLY CARSON &nbsp;·&nbsp; CATHY O'BRIEN &nbsp;·&nbsp; PRAVEEN MOHAN &nbsp;·&nbsp; TONY RODRIGUES &nbsp;·&nbsp; JP &nbsp;·&nbsp; NICKY ALAN &nbsp;·&nbsp; MAX LOWEN &nbsp;·&nbsp; GUY ANDERSON &nbsp;·&nbsp; DANI HENDERSON &nbsp;·&nbsp;
+    &nbsp; DAVID ICKE &nbsp;·&nbsp; BILLY CARSON &nbsp;·&nbsp; CATHY O'BRIEN &nbsp;·&nbsp; PRAVEEN MOHAN &nbsp;·&nbsp; TONY RODRIGUES &nbsp;·&nbsp; JP &nbsp;·&nbsp; NICKY ALAN &nbsp;·&nbsp; MAX LOWEN &nbsp;·&nbsp; GUY ANDERSON &nbsp;·&nbsp; DANI HENDERSON &nbsp;·&nbsp;
   </div>
 </div>
 
@@ -1129,116 +1229,110 @@
 <!-- SPEAKERS -->
 <section class="speakers-section" id="speakers">
   <p class="section-label">World-Class Lineup</p>
-  <h2 class="section-title">Headline Speakers</h2>
-  <p class="speakers-subtitle">Renowned researchers, survivors, experiencers, and pioneers — gathered in one place. Many don't appear at other events.</p>
+  <h2 class="section-title">GSIC2026-UK Conference Speakers</h2>
+  <p class="speakers-subtitle">Renowned researchers, survivors, experiencers, and pioneers — gathered in one place. Click any speaker to learn more.</p>
 
   <div class="speakers-grid">
 
     <!-- Featured: David Icke -->
-    <div class="speaker-card featured">
-      <div class="speaker-photo-placeholder sp-1">
-        <div class="speaker-icon">👤</div>
-      </div>
+    <div class="speaker-card featured" onclick="openSpeakerModal('david-icke')">
+      <img class="speaker-photo" src="David Icke.avif" alt="David Icke" loading="lazy">
       <div class="speaker-overlay">
         <div class="featured-badge">Headline Speaker</div>
         <p class="speaker-title">Author · Researcher · Visionary</p>
         <h3 class="speaker-name">David Icke</h3>
-        <p class="speaker-bio-short">For over three decades, he has fearlessly torn through the illusions, deceptions, and hidden power structures shaping our world. When David steps onto the stage, the room changes.</p>
+        <p class="speaker-bio-short">For over three decades, he has fearlessly torn through the illusions and hidden power structures shaping our world.</p>
       </div>
     </div>
 
     <!-- Featured: Billy Carson -->
-    <div class="speaker-card featured">
-      <div class="speaker-photo-placeholder sp-2">
-        <div class="speaker-icon">👤</div>
-      </div>
+    <div class="speaker-card featured" onclick="openSpeakerModal('billy-carson')">
+      <img class="speaker-photo" src="Billy Carson.avif" alt="Billy Carson" loading="lazy">
       <div class="speaker-overlay">
         <div class="featured-badge">Headline Speaker</div>
         <p class="speaker-title">Consciousness · Science · History</p>
         <h3 class="speaker-name">Billy Carson</h3>
-        <p class="speaker-bio-short">Decoding the science of the mind for ultimate success. Powerful insights on consciousness, advanced technologies, and humanity's true potential.</p>
+        <p class="speaker-bio-short">Decoding the science of the mind for ultimate success. Founder of 4BiddenKnowledge Inc.</p>
       </div>
     </div>
 
-    <!-- Other Speakers -->
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-3"><div class="speaker-icon">👤</div></div>
+    <!-- Cathy O'Brien -->
+    <div class="speaker-card" onclick="openSpeakerModal('cathy-obrien')">
+      <img class="speaker-photo" src="Cathy O'Brien.avif" alt="Cathy O'Brien" loading="lazy">
       <div class="speaker-overlay">
-        <p class="speaker-title">MK Ultra Survivor · Author</p>
+        <p class="speaker-title">CIA · Pentagon · Mind Control</p>
         <h3 class="speaker-name">Cathy O'Brien</h3>
-        <p class="speaker-bio-short">35+ years exposing mind control at the highest levels of government.</p>
+        <p class="speaker-bio-short">MK Ultra survivor. 30+ years exposing mind control at the highest levels.</p>
       </div>
     </div>
 
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-4"><div class="speaker-icon">👤</div></div>
+    <!-- Praveen Mohan -->
+    <div class="speaker-card" onclick="openSpeakerModal('praveen-mohan')">
+      <img class="speaker-photo" src="Praveen Mohan.avif" alt="Praveen Mohan" loading="lazy">
       <div class="speaker-overlay">
-        <p class="speaker-title">Exo-Politics · Secret Space Programs</p>
-        <h3 class="speaker-name">Dr. Michael Salla</h3>
-        <p class="speaker-bio-short">World leader in exo-politics and covert space operations research.</p>
-      </div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-5"><div class="speaker-icon">👤</div></div>
-      <div class="speaker-overlay">
-        <p class="speaker-title">Contactee · Bestselling Author</p>
-        <h3 class="speaker-name">Elena Danaan</h3>
-        <p class="speaker-bio-short">Bestselling author of "The Seeders." Galactic emissary and experiencer.</p>
-      </div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-6"><div class="speaker-icon">👤</div></div>
-      <div class="speaker-overlay">
-        <p class="speaker-title">US Air Force Veteran · Whistleblower</p>
-        <h3 class="speaker-name">Emery Smith</h3>
-        <p class="speaker-bio-short">Directly involved in classified laboratory work with extraterrestrial biological samples.</p>
-      </div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-1"><div class="speaker-icon">👤</div></div>
-      <div class="speaker-overlay">
-        <p class="speaker-title">Ancient Mysteries Researcher</p>
+        <p class="speaker-title">Explorer of Ancient Temples</p>
         <h3 class="speaker-name">Praveen Mohan</h3>
-        <p class="speaker-bio-short">World explorer exposing forbidden archaeological truths across ancient sites.</p>
+        <p class="speaker-bio-short">8 million followers. Uncovering hidden knowledge in ancient temples worldwide.</p>
       </div>
     </div>
 
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-2"><div class="speaker-icon">👤</div></div>
+    <!-- Tony Rodrigues -->
+    <div class="speaker-card" onclick="openSpeakerModal('tony-rodrigues')">
+      <img class="speaker-photo" src="Tony Rodrigues.avif" alt="Tony Rodrigues" loading="lazy">
       <div class="speaker-overlay">
-        <p class="speaker-title">Secret Space Program Experiencer</p>
+        <p class="speaker-title">Secret Space Program Abductee</p>
         <h3 class="speaker-name">Tony Rodrigues</h3>
-        <p class="speaker-bio-short">20-year-and-back SSP experiencer. Author of "Ceres Colony Cavalier."</p>
+        <p class="speaker-bio-short">Abducted into covert programs on Earth, Mars, Ceres and the Moon.</p>
       </div>
     </div>
 
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-3"><div class="speaker-icon">👤</div></div>
+    <!-- JP -->
+    <div class="speaker-card" onclick="openSpeakerModal('jp')">
+      <img class="speaker-photo" src="JP.avif" alt="JP" loading="lazy">
       <div class="speaker-overlay">
-        <p class="speaker-title">Survivor · Author · Speaker</p>
-        <h3 class="speaker-name">Max Lowen</h3>
-        <p class="speaker-bio-short">SRA survivor exposing mind control, trafficking, and consciousness suppression.</p>
-      </div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-4"><div class="speaker-icon">👤</div></div>
-      <div class="speaker-overlay">
-        <p class="speaker-title">Psychic Medium · TV Personality</p>
-        <h3 class="speaker-name">Nicky Alan</h3>
-        <p class="speaker-bio-short">Renowned psychic medium and spiritual teacher. As seen on British television.</p>
-      </div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="speaker-photo-placeholder sp-5"><div class="speaker-icon">👤</div></div>
-      <div class="speaker-overlay">
-        <p class="speaker-title">US Army · Contactee</p>
+        <p class="speaker-title">The Military Insider</p>
         <h3 class="speaker-name">JP</h3>
-        <p class="speaker-bio-short">Active military insider sharing first-hand contact experiences and classified encounters.</p>
+        <p class="speaker-bio-short">Decorated military veteran sharing first-hand accounts of covert space operations.</p>
+      </div>
+    </div>
+
+    <!-- Nicky Alan -->
+    <div class="speaker-card" onclick="openSpeakerModal('nicky-alan')">
+      <img class="speaker-photo" src="Nicky alan.avif" alt="Nicky Alan" loading="lazy">
+      <div class="speaker-overlay">
+        <p class="speaker-title">British Psychic Medium</p>
+        <h3 class="speaker-name">Nicky Alan</h3>
+        <p class="speaker-bio-short">Bestselling author, angel communicator, and spiritual speaker.</p>
+      </div>
+    </div>
+
+    <!-- Max Lowen -->
+    <div class="speaker-card" onclick="openSpeakerModal('max-lowen')">
+      <img class="speaker-photo" src="Max Lowen.avif" alt="Max Lowen" loading="lazy">
+      <div class="speaker-overlay">
+        <p class="speaker-title">SRA Survivor �� Whistleblower</p>
+        <h3 class="speaker-name">Max Lowen</h3>
+        <p class="speaker-bio-short">Born into a high elite family. Survivor of SRA and trafficking.</p>
+      </div>
+    </div>
+
+    <!-- Guy Anderson -->
+    <div class="speaker-card" onclick="openSpeakerModal('guy-anderson')">
+      <img class="speaker-photo" src="Guy Anderson.avif" alt="Guy Anderson" loading="lazy">
+      <div class="speaker-overlay">
+        <p class="speaker-title">Tartarian Empire Code Breaker</p>
+        <h3 class="speaker-name">Guy Anderson</h3>
+        <p class="speaker-bio-short">Exposing Tartaria, lost resets, suppressed technologies and Tesla secrets.</p>
+      </div>
+    </div>
+
+    <!-- Dani Henderson -->
+    <div class="speaker-card" onclick="openSpeakerModal('dani-henderson')">
+      <img class="speaker-photo" src="Dani Henderson.avif" alt="Dani Henderson" loading="lazy">
+      <div class="speaker-overlay">
+        <p class="speaker-title">Experiencer · Founder of GSIC</p>
+        <h3 class="speaker-name">Dani Henderson</h3>
+        <p class="speaker-bio-short">Lifelong experiencer of the paranormal. Visionary founder of GSIC.</p>
       </div>
     </div>
 
@@ -1248,6 +1342,22 @@
     <a href="https://events.humanitix.com/gsic2026-uk" target="_blank" class="btn btn-primary" style="display:inline-block; padding:18px 52px;">Secure Your Seat — Get Tickets</a>
   </div>
 </section>
+
+<!-- SPEAKER MODALS -->
+<dialog class="speaker-modal" id="speaker-modal">
+  <button class="modal-close" onclick="this.closest('dialog').close()">&times;</button>
+  <div class="modal-inner">
+    <div class="modal-header">
+      <img class="modal-photo" id="modal-photo" src="" alt="">
+      <div class="modal-header-text">
+        <p class="modal-speaker-title" id="modal-title"></p>
+        <h3 class="modal-speaker-name" id="modal-name"></h3>
+        <p class="modal-speaker-subtitle" id="modal-subtitle"></p>
+      </div>
+    </div>
+    <div class="modal-bio" id="modal-bio"></div>
+  </div>
+</dialog>
 
 <!-- WHY NOW -->
 <section class="why-now" id="why">
@@ -1413,12 +1523,12 @@
 <footer>
   <div class="footer-logo"><span>G</span>SIC</div>
   <p>© 2026 Galactic Spiritual Informers Connection. All rights reserved.</p>
-  <div style="display:flex;gap:24px;">
-    <a href="https://www.galacticspiritualinformers.com/faqs" target="_blank">FAQs</a>
-    <a href="mailto:info@galacticspiritualinformers.com">Contact</a>
-    <a href="https://www.instagram.com/gsic_events/" target="_blank">Instagram</a>
-    <a href="https://www.facebook.com/GalacticSpiritualInformersConnection" target="_blank">Facebook</a>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;">
+    <a href="https://www.instagram.com/galacticspiritualinfomers/" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/groups/773003301032359" target="_blank">Facebook</a>
     <a href="https://youtube.com/@danihenderson-GSIC" target="_blank">YouTube</a>
+    <a href="mailto:info@galacticspiritualinformers.com">Contact Us</a>
+    <a href="https://www.galacticspiritualinformers.com/faqs" target="_blank">FAQs</a>
   </div>
 </footer>
 
@@ -1482,6 +1592,105 @@
     }, 3000);
   }
 })();
+
+// Speaker modal data (trusted, static content — not user-generated)
+const speakerData = {
+  'david-icke': {
+    photo: 'David Icke.avif',
+    title: 'Headline Speaker',
+    name: 'David Icke',
+    subtitle: 'World-Renowned Author, Global Catalyst for Awakening, Relentless Truth-Seeker',
+    bio: "David Icke doesn\u2019t whisper truth \u2014 he detonates it. For over three decades, he has fearlessly torn through the illusions, deceptions, and hidden power structures shaping our world. His mind is a weapon, his research a shockwave, and his voice a catalyst for awakening on a global scale.\n\nWhen David steps onto the stage, the room changes \u2014 perspectives crack open, assumptions collapse, and audiences walk away seeing reality through entirely new eyes. This is not just another speaker. This is a once-in-a-generation force who challenges everything you thought you knew \u2014 and empowers you to reclaim your power in a world built on illusion."
+  },
+  'billy-carson': {
+    photo: 'Billy Carson.avif',
+    title: 'Headline Speaker',
+    name: 'Billy Carson',
+    subtitle: 'Decoding Science of the Mind for Ultimate Success',
+    bio: "Billy Carson is a distinguished author, researcher, and founder of 4BiddenKnowledge Inc., recognized globally for his groundbreaking work uniting advanced science, ancient civilizations, and human consciousness.\n\nA frequent expert on Ancient Aliens and Gaia TV, he empowers audiences to expand their understanding of reality and unlock the limitless potential of the human mind. Billy helps seekers find strength to overcome the past and build strong practical skills to gain the life they want!"
+  },
+  'cathy-obrien': {
+    photo: "Cathy O'Brien.avif",
+    title: 'CIA, Pentagon, Mind Control',
+    name: "Cathy O'Brien",
+    subtitle: 'MK Ultra Mind Control Survivor',
+    bio: "For more than three decades, Cathy O\u2019Brien has shared her personal experience of MK ULTRA and psychological manipulation programs inflicted by governments and militaries on children and adults.\n\nHer book The Trance-Formation of America is the leading intel on the brutal reality of hidden atrocities and the power of recovery and self empowerment. Cathy now advises government sectors in the education and development of children. Millions have heard her brave testimony and the system of the elites is in total collapse due in part to her testimony and the truth of the human power and spirit.\n\nProtecting the freedom of individual thought in an increasingly changing world is key."
+  },
+  'praveen-mohan': {
+    photo: 'Praveen Mohan.avif',
+    title: 'Explorer of Ancient Temples',
+    name: 'Praveen Mohan',
+    subtitle: 'Globally Recognized Researcher & Explorer',
+    bio: "Praveen Mohan is a globally recognized researcher, author, and explorer dedicated to uncovering the hidden knowledge encoded within ancient temples around the world. With a community of over 8 million followers across his platforms, Praveen\u2019s work has inspired millions to see history through a new lens \u2014 one that honours the ingenuity and spirituality of ancient civilizations.\n\nFeatured on Ancient Aliens (History Channel), Ren TV, Thailand PBS, and leading Indian networks, Praveen is known for his hands-on investigations and groundbreaking documentation of ancient engineering, architecture, and symbolism. His discoveries reveal the extraordinary sophistication of temple design and the scientific wisdom preserved within sacred art.\n\nThrough his research, Praveen continues to bridge ancient wisdom with modern curiosity \u2014 challenging us to rediscover the knowledge hidden in plain sight."
+  },
+  'tony-rodrigues': {
+    photo: 'Tony Rodrigues.avif',
+    title: 'Secret Space Program Abductee',
+    name: 'Tony Rodrigues',
+    subtitle: 'Author of Ceres Colony Cavalier',
+    bio: "Tony was abducted by a military group in step with extraterrestrials and forced into covert programs on Earth, Mars, Ceres and the Moon. Despite how unlikely this might sound to the unaware, there is physical evidence, documentation of space program existence and many other soldiers and abductees have stepped forward to share their testimonies inspired by the bravery of Tony.\n\nHe endured forced slave labor and witnessed many other non-volunteers of these programs. Since recovering his memories Tony has re-created technology he witnessed in the Military base on Mars and is creating educational tools for children that will help advance learning at all levels of ability. His book Ceres Colony Cavalier shares great details of the events mentioned here."
+  },
+  'jp': {
+    photo: 'JP.avif',
+    title: 'The Military Insider',
+    name: 'JP',
+    subtitle: 'Decorated Military Veteran & Whistleblower',
+    bio: "Known worldwide for his extraordinary first-hand accounts of covert space operations, JP brings an unprecedented perspective to GSIC 2026. A decorated military veteran turned whistleblower, he shares remarkable experiences of advanced aerospace programs, off-world missions, and encounters with non-terrestrial intelligence.\n\nWith military permission to speak openly, JP will reveal insights about Space Arks, hidden technologies, under-sea craft, and the evolving collaboration between humanity and cosmic civilizations. This exclusive presentation offers a rare glimpse into a reality few have witnessed \u2014 and a message of courage, unity, and awakening for all who are ready to listen."
+  },
+  'nicky-alan': {
+    photo: 'Nicky alan.avif',
+    title: 'British Psychic Medium',
+    name: 'Nicky Alan',
+    subtitle: 'Bestselling Author & Angel Communicator',
+    bio: "Nicky Alan is a global Bestselling Author, Angel Communicator, Psychic Medium, and Spiritual Speaker. She also reaches the masses through her social media work enlightening humankind on world prophecy, spiritual awakening and uncovering the truth about humanity."
+  },
+  'max-lowen': {
+    photo: 'Max Lowen.avif',
+    title: 'SRA Survivor & Whistleblower',
+    name: 'Max Lowen',
+    subtitle: 'Satanic Ritual Abuse Survivor & Whistleblower',
+    bio: "Max Lowen was born into a high elite family and is a survivor of SRA and trafficking. Her uncle would traffic her underneath the Vatican every Summer where Max witnessed unthinkable operations connecting to high society, global leaders and higher authorities who were aware of activities.\n\nMax exposes and educates on mind control, the satanic pedophile global cult that runs the world and the role of the Vatican in consciousness suppression and soul control through her interviews, articles, classes and public speaking."
+  },
+  'guy-anderson': {
+    photo: 'Guy Anderson.avif',
+    title: 'Tartarian Empire Code Breaker',
+    name: 'Guy Anderson',
+    subtitle: 'Researcher \u00b7 Historian \u00b7 Truth Seeker',
+    bio: "Guy Anderson is one of the leading global voices of exposing the mysteries of Tartaria, the lost resets, suppressed technologies, and the strange truths behind Tesla and the so-called \"cabbage patch kids.\"\n\nWith sharp research, fearless questioning, and a gift for making the impossible suddenly feel undeniable, Guy pulls audiences into a world where the past isn\u2019t what we were told\u2026 and the future depends on finally seeing it."
+  },
+  'dani-henderson': {
+    photo: 'Dani Henderson.avif',
+    title: 'Experiencer \u00b7 Founder of GSIC',
+    name: 'Dani Henderson',
+    subtitle: 'Alien & Paranormal Experiencer \u00b7 Broadcaster \u00b7 Visionary',
+    bio: "Dani Henderson is a lifelong experiencer of the paranormal \u2014 from profound encounters with angels and extraterrestrial beings to direct experiences with inter-dimensional phenomena. A broadcaster, intuitive, and the visionary founder of the Galactic Spiritual Informers Connection.\n\nDani has dedicated her life to revealing the deeper truths of our planet, our origins, and our connection with benevolent off-world civilizations. Her mission is one of courage and unity \u2014 to bridge worlds, awaken consciousness, and empower humanity to remember who we truly are.\n\nMy planet, your planet, our planet."
+  }
+};
+
+function openSpeakerModal(id) {
+  const data = speakerData[id];
+  if (!data) return;
+  const modal = document.getElementById('speaker-modal');
+  document.getElementById('modal-photo').src = data.photo;
+  document.getElementById('modal-photo').alt = data.name;
+  document.getElementById('modal-title').textContent = data.title;
+  document.getElementById('modal-name').textContent = data.name;
+  document.getElementById('modal-subtitle').textContent = data.subtitle;
+  // Bio uses textContent with \n converted to <p> tags for safe rendering
+  const bioEl = document.getElementById('modal-bio');
+  bioEl.textContent = '';
+  data.bio.split('\n\n').forEach(para => {
+    const p = document.createElement('p');
+    p.textContent = para;
+    bioEl.appendChild(p);
+  });
+  modal.showModal();
+}
+
+// Close modal on backdrop click
+document.getElementById('speaker-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.close();
+});
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
