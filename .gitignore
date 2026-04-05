@@ -1,8 +1,9 @@
 .DS_Store
 .claude/
-*.mp4
-*.mov
-*.avi
 node_modules/
-.vercel/
 .vercel
+
+# Raw video clips (keep stitched output)
+0[0-9]-*.mp4
+Deep_Space_*.mp4
+concat.txt
