@@ -1645,20 +1645,29 @@
       { start: 51.2,  end: 63.2 },  // 7: tickets + final cta (energy)
     ];
 
-    // Page sections to measure (in DOM order)
-    // Use querySelectorAll for topic-blocks to avoid nth-child issues with dividers
-    const sectionEls = [];
+    // Get absolute top position of element (not relative to parent)
+    function getAbsoluteTop(el) {
+      let top = 0;
+      while (el) {
+        top += el.offsetTop;
+        el = el.offsetParent;
+      }
+      return top;
+    }
+
+    // Section elements matched to segments
     function getSectionEls() {
-      sectionEls.length = 0;
-      sectionEls.push(document.querySelector('.hero'));
       const topicBlocks = document.querySelectorAll('.topic-block');
-      sectionEls.push(topicBlocks[0]); // ancient
-      sectionEls.push(topicBlocks[1]); // mkultra
-      sectionEls.push(topicBlocks[2]); // ssp
-      sectionEls.push(document.querySelector('.speakers-section'));
-      sectionEls.push(document.querySelector('.why-now'));
-      sectionEls.push(document.querySelector('.social-proof'));
-      sectionEls.push(document.querySelector('.tickets'));
+      return [
+        document.querySelector('.hero'),
+        topicBlocks[0],  // ancient
+        topicBlocks[1],  // mkultra
+        topicBlocks[2],  // ssp
+        document.querySelector('.speakers-section'),
+        document.querySelector('.why-now'),
+        document.querySelector('.social-proof'),
+        document.querySelector('.tickets'),
+      ];
     }
 
     let sectionMap = [];
@@ -1667,24 +1676,23 @@
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll <= 0) return;
 
-      getSectionEls();
+      const els = getSectionEls();
       sectionMap = [];
 
-      sectionEls.forEach((el, i) => {
+      els.forEach((el, i) => {
         if (!el) return;
-        const top = el.offsetTop;
+        const top = getAbsoluteTop(el);
         const bottom = top + el.offsetHeight;
         sectionMap.push({
           scrollStart: top / maxScroll,
           scrollEnd: bottom / maxScroll,
-          vidStart: segments[i] ? segments[i].start : segments[segments.length - 1].start,
-          vidEnd: segments[i] ? segments[i].end : segments[segments.length - 1].end,
+          vidStart: segments[i].start,
+          vidEnd: segments[i].end,
         });
       });
     }
 
     function scrollToVideoTime(scrollFraction) {
-      // Find which section we're in and interpolate
       for (let i = 0; i < sectionMap.length; i++) {
         const s = sectionMap[i];
         if (scrollFraction <= s.scrollEnd || i === sectionMap.length - 1) {
@@ -1697,7 +1705,6 @@
     }
 
     function onScroll() {
-      // Switch from auto-play to scroll-sync on first scroll
       if (!scrollSyncActive && window.scrollY > 50) {
         scrollSyncActive = true;
         video.pause();
@@ -1717,7 +1724,6 @@
     }
 
     function updateVideo() {
-      // Snap instantly if the jump is large (crossing segment boundaries)
       if (Math.abs(targetTime - currentTime) > 2) {
         currentTime = targetTime;
       } else {
@@ -1733,10 +1739,13 @@
     }
 
     function bindScroll() {
-      buildSectionMap();
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', buildSectionMap);
-      onScroll();
+      // Delay to let page fully render before measuring
+      setTimeout(() => {
+        buildSectionMap();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', () => { buildSectionMap(); });
+        onScroll();
+      }, 500);
     }
 
     if (video.readyState >= 1) {
