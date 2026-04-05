@@ -50,7 +50,7 @@
     position: fixed;
     inset: 0;
     z-index: 1;
-    background: rgba(1,4,21,0.15);
+    background: rgba(1,4,21,0.05);
     pointer-events: none;
   }
 
@@ -394,7 +394,7 @@
     z-index: 3;
     padding: 60px 80px;
     max-width: 560px;
-    background: rgba(1,4,21,0.5);
+    background: rgba(1,4,21,0.25);
     border-radius: 4px;
     opacity: 0;
     transform: translateY(40px);
@@ -457,7 +457,7 @@
 
   /* ── SPEAKERS ── */
   .speakers-section {
-    background: rgba(6,11,31,0.55);
+    background: rgba(6,11,31,0.3);
     padding: 100px 80px;
   }
 
@@ -746,7 +746,7 @@
 
   /* ── WHY NOW ── */
   .why-now {
-    background: rgba(4,6,20,0.5);
+    background: rgba(4,6,20,0.25);
     padding: 100px 80px;
     position: relative;
     overflow: hidden;
@@ -821,7 +821,7 @@
 
   /* ── SOCIAL PROOF ── */
   .social-proof {
-    background: rgba(1,4,21,0.5);
+    background: rgba(1,4,21,0.25);
     padding: 80px 80px;
     border-top: 1px solid rgba(255,255,255,0.04);
     border-bottom: 1px solid rgba(255,255,255,0.04);
@@ -905,7 +905,7 @@
 
   /* ── TICKETS ── */
   .tickets {
-    background: rgba(4,6,20,0.55);
+    background: rgba(4,6,20,0.3);
     padding: 100px 80px;
   }
 
@@ -1049,7 +1049,7 @@
 
   /* ── FINAL CTA BANNER ── */
   .final-cta {
-    background: rgba(26,20,0,0.5);
+    background: rgba(26,20,0,0.3);
     padding: 100px 80px;
     text-align: center;
     position: relative;
@@ -1100,7 +1100,7 @@
 
   /* ── FOOTER ── */
   footer {
-    background: rgba(1,4,21,0.6);
+    background: rgba(1,4,21,0.35);
     padding: 40px 80px;
     display: flex;
     justify-content: space-between;
@@ -1582,17 +1582,15 @@
     video.loop = true;
     video.play().catch(() => {});
   } else {
-    // Force the video to start loading
-    video.play().then(() => {
-      video.pause();
-      video.currentTime = 0;
-    }).catch(() => { video.currentTime = 0; });
+    // Hero video auto-plays on load, scroll-sync takes over when user scrolls
+    let scrollSyncActive = false;
+    video.currentTime = 0;
+    video.playbackRate = 0.5;
+    video.play().catch(() => {});
 
     // Video segment timestamps (cumulative from stitched clips)
-    // 01-hero:12s, 02-ancient:4s, 03-mkcultra:4s, 04-ssp:4s,
-    // 05-nebula:9.4s, 06-earth:9.4s, 07-community:8s, 08-energy:12s, 09-fade:9.4s
     const segments = [
-      { start: 0,     end: 1.5 },   // 0: hero (eye opening — quick flash)
+      { start: 0,     end: 12 },    // 0: hero (full clip plays during auto-play)
       { start: 12,    end: 16.1 },  // 1: ancient civilisations
       { start: 16.1,  end: 20.2 },  // 2: mkcultra
       { start: 20.2,  end: 24.3 },  // 3: ssp
@@ -1654,6 +1652,14 @@
     }
 
     function onScroll() {
+      // Switch from auto-play to scroll-sync on first scroll
+      if (!scrollSyncActive && window.scrollY > 50) {
+        scrollSyncActive = true;
+        video.pause();
+        currentTime = video.currentTime;
+      }
+      if (!scrollSyncActive) return;
+
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll <= 0) return;
       const scrollFraction = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
