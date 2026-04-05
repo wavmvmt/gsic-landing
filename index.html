@@ -86,11 +86,7 @@
   }
 
   #video-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    background: rgba(1,4,21,0.05);
-    pointer-events: none;
+    display: none;
   }
 
   /* All content sits above the video */
@@ -435,7 +431,7 @@
     max-width: 620px;
     background: rgba(1,4,21,0.3);
     border-radius: 4px;
-    backdrop-filter: blur(4px);
+    /* no blur — keep video crisp */
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s ease, transform 0.8s ease;
