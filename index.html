@@ -1603,16 +1603,20 @@
     ];
 
     // Page sections to measure (in DOM order)
-    const sectionSelectors = [
-      '.hero',
-      '.topics .topic-block:first-child',   // ancient
-      '.topics .topic-block:nth-child(3)',   // mkultra (2nd topic-block, after divider)
-      '.topics .topic-block:nth-child(5)',   // ssp (3rd topic-block)
-      '.speakers-section',
-      '.why-now',
-      '.social-proof',
-      '.tickets',
-    ];
+    // Use querySelectorAll for topic-blocks to avoid nth-child issues with dividers
+    const sectionEls = [];
+    function getSectionEls() {
+      sectionEls.length = 0;
+      sectionEls.push(document.querySelector('.hero'));
+      const topicBlocks = document.querySelectorAll('.topic-block');
+      sectionEls.push(topicBlocks[0]); // ancient
+      sectionEls.push(topicBlocks[1]); // mkultra
+      sectionEls.push(topicBlocks[2]); // ssp
+      sectionEls.push(document.querySelector('.speakers-section'));
+      sectionEls.push(document.querySelector('.why-now'));
+      sectionEls.push(document.querySelector('.social-proof'));
+      sectionEls.push(document.querySelector('.tickets'));
+    }
 
     let sectionMap = [];
 
@@ -1620,13 +1624,13 @@
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll <= 0) return;
 
+      getSectionEls();
       sectionMap = [];
-      const els = sectionSelectors.map(s => document.querySelector(s)).filter(Boolean);
 
-      els.forEach((el, i) => {
-        const rect = el.getBoundingClientRect();
-        const top = window.scrollY + rect.top;
-        const bottom = top + rect.offsetHeight;
+      sectionEls.forEach((el, i) => {
+        if (!el) return;
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
         sectionMap.push({
           scrollStart: top / maxScroll,
           scrollEnd: bottom / maxScroll,
