@@ -21,8 +21,46 @@
     --muted: #888;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
   html { scroll-behavior: smooth; }
+
+  /* ── CUSTOM CURSOR ── */
+  .cursor-orb {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.9) 0%, rgba(212,175,55,0.3) 50%, transparent 70%);
+    box-shadow: 0 0 15px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.2);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, box-shadow 0.2s;
+    mix-blend-mode: screen;
+  }
+
+  .cursor-orb.hovering {
+    width: 36px;
+    height: 36px;
+    box-shadow: 0 0 25px rgba(212,175,55,0.7), 0 0 60px rgba(212,175,55,0.3);
+  }
+
+  .cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.4);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+  }
+
+  @media (max-width: 900px) {
+    * { cursor: auto !important; }
+    .cursor-orb, .cursor-trail { display: none; }
+  }
 
   body {
     background: var(--black);
@@ -1175,6 +1213,10 @@
 </head>
 <body>
 
+<!-- CUSTOM CURSOR -->
+<div class="cursor-orb" id="cursor-orb"></div>
+<div class="cursor-trail" id="cursor-trail"></div>
+
 <!-- SCROLL-SYNCED BACKGROUND VIDEO -->
 <div id="scroll-video-container">
   <video id="scroll-video" muted playsinline preload="auto">
@@ -1872,6 +1914,45 @@ const fadeObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.topic-content, .divider-line').forEach(el => {
   fadeObserver.observe(el);
 });
+
+// Custom cursor
+(function() {
+  const orb = document.getElementById('cursor-orb');
+  const trail = document.getElementById('cursor-trail');
+  if (!orb || !trail) return;
+
+  let mx = 0, my = 0;
+  let tx = 0, ty = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    orb.style.left = mx + 'px';
+    orb.style.top = my + 'px';
+  });
+
+  // Trail follows with delay
+  function animateTrail() {
+    tx += (mx - tx) * 0.15;
+    ty += (my - ty) * 0.15;
+    trail.style.left = tx + 'px';
+    trail.style.top = ty + 'px';
+    requestAnimationFrame(animateTrail);
+  }
+  animateTrail();
+
+  // Grow on hover over clickable elements
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, .speaker-card, .nav-cta, .btn, .hamburger')) {
+      orb.classList.add('hovering');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, .speaker-card, .nav-cta, .btn, .hamburger')) {
+      orb.classList.remove('hovering');
+    }
+  });
+})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
