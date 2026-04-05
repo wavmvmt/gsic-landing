@@ -43,7 +43,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.35;
+    opacity: 0.5;
   }
 
   #video-overlay {
@@ -1566,17 +1566,23 @@
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   if (isMobile) {
-    // Mobile: auto-play at slow speed instead of scroll-sync
     video.playbackRate = 0.4;
     video.loop = true;
     video.play().catch(() => {});
   } else {
-    // Desktop: scroll-synced scrubbing
-    video.pause();
+    // Force the video to start loading and be ready for seeking
+    video.play().then(() => {
+      video.pause();
+      video.currentTime = 0;
+    }).catch(() => {
+      // Autoplay blocked — still bind scroll, seeking may work
+      video.currentTime = 0;
+    });
 
     function onScroll() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollFraction = window.scrollY / maxScroll;
+      if (maxScroll <= 0) return;
+      const scrollFraction = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
       targetTime = scrollFraction * (video.duration || 0);
 
       if (!ticking) {
@@ -1586,8 +1592,7 @@
     }
 
     function updateVideo() {
-      // Lerp for smooth scrubbing
-      currentTime += (targetTime - currentTime) * 0.1;
+      currentTime += (targetTime - currentTime) * 0.12;
       if (Math.abs(targetTime - currentTime) > 0.01) {
         video.currentTime = currentTime;
         requestAnimationFrame(updateVideo);
@@ -1597,17 +1602,19 @@
       }
     }
 
-    // Wait for video metadata before binding scroll
-    video.addEventListener('loadedmetadata', () => {
+    function bindScroll() {
       window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll(); // Set initial position
-    });
+      onScroll();
+    }
 
-    // Fallback if metadata takes too long
-    setTimeout(() => {
-      if (video.readyState >= 1) return;
-      window.addEventListener('scroll', onScroll, { passive: true });
-    }, 3000);
+    // Bind on metadata load or after timeout
+    if (video.readyState >= 1) {
+      bindScroll();
+    } else {
+      video.addEventListener('loadedmetadata', bindScroll);
+      // Also bind after 2s regardless — video may load lazily
+      setTimeout(bindScroll, 2000);
+    }
   }
 })();
 
