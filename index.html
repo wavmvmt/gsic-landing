@@ -43,14 +43,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.8;
+    opacity: 1;
   }
 
   #video-overlay {
     position: fixed;
     inset: 0;
     z-index: 1;
-    background: rgba(1,4,21,0.35);
+    background: rgba(1,4,21,0.15);
     pointer-events: none;
   }
 
@@ -1592,14 +1592,14 @@
     // 01-hero:12s, 02-ancient:4s, 03-mkcultra:4s, 04-ssp:4s,
     // 05-nebula:9.4s, 06-earth:9.4s, 07-community:8s, 08-energy:12s, 09-fade:9.4s
     const segments = [
-      { start: 0,     end: 3 },     // 0: hero (quick glimpse, fast transition)
-      { start: 12,    end: 16.1 },  // 1: ticker + ancient
+      { start: 0,     end: 3 },     // 0: hero (eye opening)
+      { start: 12,    end: 16.1 },  // 1: ancient civilisations
       { start: 16.1,  end: 20.2 },  // 2: mkcultra
       { start: 20.2,  end: 24.3 },  // 3: ssp
       { start: 24.3,  end: 33.7 },  // 4: speakers (nebula)
       { start: 33.7,  end: 43.1 },  // 5: why now (earth)
       { start: 43.1,  end: 51.1 },  // 6: social proof (community)
-      { start: 51.1,  end: 63.2 },  // 7: tickets + final cta + footer (energy + fade)
+      { start: 51.1,  end: 63.2 },  // 7: tickets + final cta + footer
     ];
 
     // Page sections to measure (in DOM order)
@@ -1666,7 +1666,12 @@
     }
 
     function updateVideo() {
-      currentTime += (targetTime - currentTime) * 0.15;
+      // Snap instantly if the jump is large (crossing segment boundaries)
+      if (Math.abs(targetTime - currentTime) > 2) {
+        currentTime = targetTime;
+      } else {
+        currentTime += (targetTime - currentTime) * 0.2;
+      }
       if (Math.abs(targetTime - currentTime) > 0.01) {
         video.currentTime = currentTime;
         requestAnimationFrame(updateVideo);
