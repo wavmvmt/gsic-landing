@@ -1377,16 +1377,18 @@
     .topic-bg { background-position: center center; }
     .topic-bg-3 { background-position: right center; }
     .hero-speaker-left {
-      left: -5%;
-      height: 40%;
-      max-height: 350px;
-      bottom: 0;
+      left: -8%;
+      height: 35%;
+      max-height: 300px;
+      bottom: auto;
+      top: 25%;
     }
     .hero-speaker-right {
-      right: -5%;
-      height: 43%;
-      max-height: 380px;
-      bottom: 0;
+      right: -8%;
+      height: 38%;
+      max-height: 320px;
+      bottom: auto;
+      top: 22%;
     }
     .hero-speaker-left, .hero-speaker-right {
       will-change: transform;
@@ -2109,7 +2111,7 @@ function handleContactSubmit(e) {
   success.style.display = 'block';
 }
 
-// Parallax hero on mobile (bg + speakers move together, slower than scroll)
+// Parallax hero on mobile (bg + speakers scroll slower than page)
 (function() {
   if (window.innerWidth > 900) return;
   const hero = document.querySelector('.hero');
@@ -2121,9 +2123,9 @@ function handleContactSubmit(e) {
     const y = window.scrollY;
     const heroH = hero.offsetHeight;
     if (y > heroH) return;
-    // Everything moves at 50% scroll speed (parallax)
-    const offset = y * 0.5;
-    hero.style.backgroundPositionY = 'calc(center + ' + offset + 'px)';
+    // Slow scroll: bg and speakers move at 30% of scroll speed
+    const offset = y * 0.3;
+    hero.style.backgroundPositionY = offset + 'px';
     if (left) left.style.transform = 'translateY(' + offset + 'px)';
     if (right) right.style.transform = 'translateY(' + offset + 'px)';
   }, { passive: true });
