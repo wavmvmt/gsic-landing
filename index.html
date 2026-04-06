@@ -404,10 +404,16 @@
 
   .topic-bg {
     position: absolute;
-    inset: 0;
+    inset: -10%;
     z-index: 1;
     background-size: cover;
     background-position: center;
+    animation: kenBurns 25s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
   }
 
   .topic-bg-1 {
