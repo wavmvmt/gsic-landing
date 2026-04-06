@@ -70,26 +70,26 @@
     overflow-x: hidden;
   }
 
-  /* ── SCROLL VIDEO BACKGROUND ── */
-  #scroll-video-container {
+  /* ── EARTH VIDEO BACKGROUND (speakers onwards) ── */
+  #earth-video-container {
     position: fixed;
     inset: 0;
     z-index: 0;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.8s ease;
   }
 
-  #scroll-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  #earth-video-container.visible {
     opacity: 1;
   }
 
-  #video-overlay {
-    display: none;
+  #earth-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  /* All content sits above the video */
   .page-content {
     position: relative;
     z-index: 2;
@@ -178,7 +178,8 @@
     justify-content: center;
     padding: 120px 20px 80px;
     text-align: center;
-    background: transparent;
+    background: url('hero-bg') center center / cover no-repeat;
+    background-color: var(--black);
   }
 
   .hero-eyebrow {
@@ -405,23 +406,27 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    opacity: 0.15;
+    background-size: cover;
+    background-position: center;
   }
 
   .topic-bg-1 {
-    background: radial-gradient(ellipse 70% 80% at 70% 50%, rgba(212,175,55,0.4) 0%, transparent 70%);
+    background-image: url('ancient-bg');
   }
 
   .topic-bg-2 {
-    background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(180,30,30,0.4) 0%, transparent 70%);
+    background-image: url('mkcultra-bg');
   }
 
   .topic-bg-3 {
-    background: radial-gradient(ellipse 70% 80% at 70% 50%, rgba(40,80,220,0.4) 0%, transparent 70%);
+    background-image: url('ssp-bg');
   }
 
   .topic-overlay {
-    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(1,4,21,0.25);
+    z-index: 2;
   }
 
   .topic-content {
@@ -1231,6 +1236,45 @@
     .contact-form .btn-submit { grid-column: span 1; }
   }
 
+  /* ── SCROLL TO TOP ── */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 99;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  .scroll-top.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .scroll-top:hover {
+    background: #e0c04a;
+    transform: translateY(-2px);
+  }
+
+  .scroll-top svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--black);
+  }
+
   /* ── FOOTER ── */
   footer {
     background: rgba(1,4,21,0.35);
@@ -1312,13 +1356,17 @@
 <div class="cursor-orb" id="cursor-orb"><svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="32" cy="24" rx="28" ry="10" fill="url(#ufo-body)"/><ellipse cx="32" cy="22" rx="18" ry="12" fill="url(#ufo-dome)"/><ellipse cx="32" cy="26" rx="30" ry="4" fill="rgba(212,175,55,0.15)"/><circle cx="18" cy="26" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="32" cy="28" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="46" cy="26" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite" begin="0.4s"/></circle><line x1="32" y1="30" x2="32" y2="40" stroke="rgba(212,175,55,0.3)" stroke-width="6" stroke-linecap="round"/><defs><radialGradient id="ufo-body"><stop offset="0%" stop-color="#8a8a8a"/><stop offset="100%" stop-color="#3a3a3a"/></radialGradient><radialGradient id="ufo-dome"><stop offset="0%" stop-color="rgba(200,220,255,0.6)"/><stop offset="100%" stop-color="rgba(100,120,160,0.3)"/></radialGradient></defs></svg></div>
 <div class="cursor-trail" id="cursor-trail"></div>
 
-<!-- SCROLL-SYNCED BACKGROUND VIDEO -->
-<div id="scroll-video-container">
-  <video id="scroll-video" muted playsinline preload="auto">
-    <source src="gsic-scroll-video.mp4" type="video/mp4">
+<!-- EARTH VIDEO BACKGROUND (speakers onwards) -->
+<div id="earth-video-container">
+  <video id="earth-video" muted playsinline loop preload="auto">
+    <source src="06-earth.mp4" type="video/mp4">
   </video>
 </div>
-<div id="video-overlay"></div>
+
+<!-- SCROLL TO TOP BUTTON -->
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+</button>
 
 <!-- ALL PAGE CONTENT -->
 <div class="page-content">
@@ -1716,145 +1764,40 @@
 
 </div><!-- end .page-content -->
 
-<!-- SCROLL-SYNCED VIDEO CONTROLLER -->
+<!-- EARTH VIDEO + SCROLL-TO-TOP CONTROLLER -->
 <script>
 (function() {
-  const video = document.getElementById('scroll-video');
-  if (!video) return;
+  // Earth video — show from speakers section onwards
+  const earthContainer = document.getElementById('earth-video-container');
+  const earthVideo = document.getElementById('earth-video');
+  const speakersSection = document.querySelector('.speakers-section');
+  const scrollTopBtn = document.getElementById('scroll-top');
 
-  let targetTime = 0;
-  let currentTime = 0;
-  let ticking = false;
+  if (earthVideo) {
+    earthVideo.playbackRate = 0.5;
+    earthVideo.play().catch(() => {});
+  }
 
-  // Scroll-sync works on all devices (muted + playsinline = iOS compatible)
-  {
-    let scrollSyncActive = false;
-    video.currentTime = 0;
-    video.playbackRate = 0.5;
-    video.play().catch(() => {});
+  function onScroll() {
+    const speakersTop = speakersSection ? speakersSection.getBoundingClientRect().top : 9999;
 
-    // Video segment timestamps (cumulative from stitched clips)
-    const segments = [
-      { start: 0,     end: 12.1 },  // 0: hero (auto-plays on load)
-      { start: 12.1,  end: 16.2 },  // 1: ancient civilisations
-      { start: 16.2,  end: 20.3 },  // 2: mkcultra
-      { start: 20.3,  end: 24.4 },  // 3: ssp
-      { start: 24.4,  end: 33.8 },  // 4: speakers (nebula)
-      { start: 33.8,  end: 43.2 },  // 5: why now (earth)
-      { start: 43.2,  end: 51.2 },  // 6: social proof (community)
-      { start: 43.2,  end: 48 },    // 7: tickets + final cta + contact (hold mid-community)
-    ];
-
-    // Get absolute top position of element (not relative to parent)
-    function getAbsoluteTop(el) {
-      let top = 0;
-      while (el) {
-        top += el.offsetTop;
-        el = el.offsetParent;
-      }
-      return top;
-    }
-
-    // Section elements matched to segments
-    function getSectionEls() {
-      const topicBlocks = document.querySelectorAll('.topic-block');
-      return [
-        document.querySelector('.hero'),
-        topicBlocks[0],  // ancient
-        topicBlocks[1],  // mkultra
-        topicBlocks[2],  // ssp
-        document.querySelector('.speakers-section'),
-        document.querySelector('.why-now'),
-        document.querySelector('.social-proof'),
-        document.querySelector('.tickets'),
-      ];
-    }
-
-    let sectionMap = [];
-
-    function buildSectionMap() {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll <= 0) return;
-
-      const els = getSectionEls();
-      sectionMap = [];
-
-      els.forEach((el, i) => {
-        if (!el) return;
-        const top = getAbsoluteTop(el);
-        const bottom = top + el.offsetHeight;
-        sectionMap.push({
-          scrollStart: top / maxScroll,
-          scrollEnd: bottom / maxScroll,
-          vidStart: segments[i].start,
-          vidEnd: segments[i].end,
-        });
-      });
-    }
-
-    function scrollToVideoTime(scrollFraction) {
-      for (let i = 0; i < sectionMap.length; i++) {
-        const s = sectionMap[i];
-        if (scrollFraction <= s.scrollEnd || i === sectionMap.length - 1) {
-          const range = s.scrollEnd - s.scrollStart;
-          const progress = range > 0 ? Math.max(0, Math.min(1, (scrollFraction - s.scrollStart) / range)) : 0;
-          return s.vidStart + progress * (s.vidEnd - s.vidStart);
-        }
-      }
-      return 0;
-    }
-
-    function onScroll() {
-      if (!scrollSyncActive && window.scrollY > 50) {
-        scrollSyncActive = true;
-        video.pause();
-        currentTime = video.currentTime;
-      }
-      if (!scrollSyncActive) return;
-
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll <= 0) return;
-      const scrollFraction = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-      targetTime = scrollToVideoTime(scrollFraction);
-
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updateVideo);
-      }
-    }
-
-    function updateVideo() {
-      if (Math.abs(targetTime - currentTime) > 2) {
-        currentTime = targetTime;
-      } else {
-        currentTime += (targetTime - currentTime) * 0.2;
-      }
-      if (Math.abs(targetTime - currentTime) > 0.01) {
-        video.currentTime = currentTime;
-        requestAnimationFrame(updateVideo);
-      } else {
-        video.currentTime = targetTime;
-        ticking = false;
-      }
-    }
-
-    function bindScroll() {
-      // Delay to let page fully render before measuring
-      setTimeout(() => {
-        buildSectionMap();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', () => { buildSectionMap(); });
-        onScroll();
-      }, 500);
-    }
-
-    if (video.readyState >= 1) {
-      bindScroll();
+    // Show earth video when speakers section enters viewport
+    if (speakersTop < window.innerHeight * 0.8) {
+      earthContainer.classList.add('visible');
     } else {
-      video.addEventListener('loadedmetadata', bindScroll);
-      setTimeout(bindScroll, 2000);
+      earthContainer.classList.remove('visible');
+    }
+
+    // Show scroll-to-top button after scrolling 500px
+    if (window.scrollY > 500) {
+      scrollTopBtn.classList.add('show');
+    } else {
+      scrollTopBtn.classList.remove('show');
     }
   }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 
 // Speaker data (trusted, static content)

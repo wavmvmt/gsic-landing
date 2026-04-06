@@ -3,7 +3,17 @@
 node_modules/
 .vercel
 
-# Raw video clips (keep stitched output)
-0[0-9]-*.mp4
+# Raw video clips (keep earth video + stitched)
+01-hero.mp4
+02-ancient.mp4
+03-mkcultra.mp4
+04-ssp.mp4
+05-nebula.mp4
+07-community.mp4
+08-energy.mp4
+09-fade.mp4
 Deep_Space_*.mp4
+gsic-vimeo-upload.mp4
+gsic-scroll-video.mp4
 concat.txt
+gsic-landing.html
