@@ -183,13 +183,51 @@
     overflow: hidden;
   }
 
-.hero-text-wrap {
+  /* Hero speaker cutouts */
+  .hero-speaker {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+    max-height: 80%;
+  }
+
+  .hero-speaker img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px rgba(0,0,0,0.7));
+  }
+
+  .hero-speaker--left {
+    left: 0;
+    height: 75%;
+  }
+
+  .hero-speaker--right {
+    right: 0;
+    height: 80%;
+  }
+
+  .hero-text-wrap {
     position: relative;
     z-index: 2;
     text-align: center;
-    background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(1,4,21,0.5) 0%, transparent 70%);
+    background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(1,4,21,0.45) 0%, transparent 70%);
     padding: 40px 60px;
     border-radius: 8px;
+    max-width: 800px;
+  }
+
+  @media (max-width: 900px) {
+    .hero-speaker--left { height: 50%; left: -5%; }
+    .hero-speaker--right { height: 55%; right: -5%; }
+    .hero-text-wrap { padding: 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-speaker--left { height: 40%; left: -10%; }
+    .hero-speaker--right { height: 45%; right: -10%; }
   }
 
   .hero-eyebrow {
@@ -1409,6 +1447,8 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-speaker hero-speaker--left"><img src="david-icke-cutout.png" alt="David Icke" loading="eager"></div>
+  <div class="hero-speaker hero-speaker--right"><img src="billy-carson-cutout.png" alt="Billy Carson" loading="eager"></div>
   <div class="hero-text-wrap">
     <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10–12</p>
     <h1 class="hero-headline">The Truth They<br><span class="accent">Tried To Hide</span></h1>
