@@ -180,6 +180,41 @@
     text-align: center;
     background: url('hero-bg.jpg') center center / cover no-repeat;
     background-color: var(--black);
+    overflow: hidden;
+  }
+
+  .hero-speaker-left, .hero-speaker-right {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-speaker-left {
+    left: -2%;
+    height: 85%;
+    max-height: 750px;
+  }
+
+  .hero-speaker-right {
+    right: -2%;
+    height: 90%;
+    max-height: 800px;
+  }
+
+  .hero-speaker-left img, .hero-speaker-right img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(0,0,0,0.6));
+  }
+
+  /* Hero text sits above the speaker images */
+  .hero-eyebrow, .hero-headline, .hero-tagline, .hero-featuring,
+  .hero-speakers-names, .hero-sub, .hero-cta-group, .hero-date-bar,
+  .urgency-badge {
+    position: relative;
+    z-index: 2;
   }
 
   .hero-eyebrow {
@@ -1334,8 +1369,12 @@
     .hamburger { display: flex; }
     .hero { padding: 100px 20px 60px; }
     .hero-headline { font-size: clamp(40px, 8vw, 72px); }
-    .topic-content { padding: 40px 24px; }
-    .topic-block { min-height: 60vh; }
+    .topic-content { padding: 40px 24px; max-width: 100%; }
+    .topic-block { min-height: 80vh; align-items: flex-start; padding-top: 40px; }
+    .topic-block:nth-child(even) .topic-content { margin-left: 0; }
+    .topic-bg { background-position: center bottom; }
+    .hero-speaker-left { left: -10%; height: 60%; }
+    .hero-speaker-right { right: -10%; height: 65%; }
     .speakers-section, .why-now, .tickets, .social-proof, .final-cta { padding: 60px 24px; }
     .speakers-grid { grid-template-columns: 1fr 1fr; }
     .speaker-card.featured { grid-column: span 2; }
@@ -1394,6 +1433,8 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-speaker-left"><img src="david-icke-cutout.png" alt="David Icke"></div>
+  <div class="hero-speaker-right"><img src="billy-carson-cutout.png" alt="Billy Carson"></div>
   <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10–12</p>
   <h1 class="hero-headline">The Truth They<br><span class="accent">Tried To Hide</span></h1>
   <p class="hero-tagline">The Future of Truth & Consciousness</p>
