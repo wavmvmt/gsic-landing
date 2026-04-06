@@ -220,14 +220,14 @@
   }
 
   @media (max-width: 900px) {
-    .hero-speaker--left { height: 50%; left: -5%; bottom: 25%; }
-    .hero-speaker--right { height: 55%; right: -5%; bottom: 25%; }
+    .hero-speaker--left { height: 45%; left: -5%; bottom: auto; top: 15%; }
+    .hero-speaker--right { height: 50%; right: -5%; bottom: auto; top: 12%; }
     .hero-text-wrap { padding: 20px; }
   }
 
   @media (max-width: 480px) {
-    .hero-speaker--left { height: 40%; left: -10%; bottom: 30%; }
-    .hero-speaker--right { height: 45%; right: -10%; bottom: 30%; }
+    .hero-speaker--left { height: 35%; left: -8%; top: 18%; }
+    .hero-speaker--right { height: 40%; right: -8%; top: 15%; }
   }
 
   .hero-eyebrow {
@@ -1381,8 +1381,14 @@
     }
     .nav-links.open { display: flex; }
     .hamburger { display: flex; }
-    .hero { padding: 100px 20px 60px; }
-    .hero-headline { font-size: clamp(40px, 8vw, 72px); }
+    .hero { padding: 80px 20px 30px; min-height: auto; }
+    .hero-headline { font-size: clamp(36px, 8vw, 64px); }
+    .hero-tagline { font-size: 14px; letter-spacing: 3px; margin-top: 12px; }
+    .hero-featuring { margin: 16px 0 4px; font-size: 14px; }
+    .hero-speakers-names { font-size: clamp(22px, 5vw, 36px); }
+    .hero-sub { margin: 16px 0 24px; font-size: 12px; letter-spacing: 4px; }
+    .hero-date-bar { margin-top: 20px; font-size: 11px; }
+    .urgency-badge { margin-top: 12px; }
     .topic-content { padding: 40px 24px; max-width: 100%; background: rgba(1,4,21,0.4) !important; }
     .topic-block { min-height: 70vh; }
     .topic-block:nth-child(even) .topic-content { margin-left: 0; }
