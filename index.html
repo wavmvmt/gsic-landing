@@ -2109,21 +2109,23 @@ function handleContactSubmit(e) {
   success.style.display = 'block';
 }
 
-// Parallax speakers on mobile
+// Parallax hero on mobile (bg + speakers move together, slower than scroll)
 (function() {
   if (window.innerWidth > 900) return;
+  const hero = document.querySelector('.hero');
   const left = document.querySelector('.hero-speaker-left');
   const right = document.querySelector('.hero-speaker-right');
-  if (!left || !right) return;
+  if (!hero) return;
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    const heroH = document.querySelector('.hero').offsetHeight;
+    const heroH = hero.offsetHeight;
     if (y > heroH) return;
-    // Speakers scroll up at 40% of scroll speed (parallax)
-    const offset = y * 0.4;
-    left.style.transform = 'translateY(-' + offset + 'px)';
-    right.style.transform = 'translateY(-' + offset + 'px)';
+    // Everything moves at 50% scroll speed (parallax)
+    const offset = y * 0.5;
+    hero.style.backgroundPositionY = 'calc(center + ' + offset + 'px)';
+    if (left) left.style.transform = 'translateY(' + offset + 'px)';
+    if (right) right.style.transform = 'translateY(' + offset + 'px)';
   }, { passive: true });
 })();
 
