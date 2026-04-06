@@ -1369,10 +1369,11 @@
     .hamburger { display: flex; }
     .hero { padding: 100px 20px 60px; }
     .hero-headline { font-size: clamp(40px, 8vw, 72px); }
-    .topic-content { padding: 40px 24px; max-width: 100%; }
-    .topic-block { min-height: 80vh; align-items: flex-start; padding-top: 40px; }
+    .topic-content { padding: 40px 24px; max-width: 100%; background: rgba(1,4,21,0.5) !important; }
+    .topic-block { min-height: auto; align-items: stretch; flex-direction: column; }
     .topic-block:nth-child(even) .topic-content { margin-left: 0; }
-    .topic-bg { background-position: center bottom; }
+    .topic-bg { position: relative; inset: auto; min-height: 50vh; background-position: center top; }
+    .topic-bg-3 { background-position: right top; }
     .hero-speaker-left { left: -15%; height: 35%; max-height: 320px; }
     .hero-speaker-right { right: -15%; height: 38%; max-height: 340px; }
     .speakers-section, .why-now, .tickets, .social-proof, .final-cta { padding: 60px 24px; }
