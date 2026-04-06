@@ -220,14 +220,13 @@
   }
 
   @media (max-width: 900px) {
-    .hero-speaker--left { height: 45%; left: -5%; bottom: auto; top: 15%; }
-    .hero-speaker--right { height: 50%; right: -5%; bottom: auto; top: 12%; }
+    .hero {
+      background-image: url('hero-bg-mobile.jpg');
+      background-size: cover;
+      background-position: center top;
+    }
+    .hero-speaker { display: none; }
     .hero-text-wrap { padding: 20px; }
-  }
-
-  @media (max-width: 480px) {
-    .hero-speaker--left { height: 30%; left: -8%; top: 15%; }
-    .hero-speaker--right { height: 33%; right: -8%; top: 12%; }
   }
 
   .hero-eyebrow {
