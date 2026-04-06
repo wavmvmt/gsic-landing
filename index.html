@@ -183,33 +183,7 @@
     overflow: hidden;
   }
 
-  .hero-speaker-left, .hero-speaker-right {
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .hero-speaker-left {
-    left: -2%;
-    height: 85%;
-    max-height: 750px;
-  }
-
-  .hero-speaker-right {
-    right: -2%;
-    height: 90%;
-    max-height: 800px;
-  }
-
-  .hero-speaker-left img, .hero-speaker-right img {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 30px rgba(0,0,0,0.6));
-  }
-
-  .hero-text-wrap {
+.hero-text-wrap {
     position: relative;
     z-index: 2;
     text-align: center;
@@ -1369,33 +1343,15 @@
     }
     .nav-links.open { display: flex; }
     .hamburger { display: flex; }
-    .hero { padding: 100px 20px 60px; background-attachment: fixed; background-size: 100% auto; background-position: top center; }
+    .hero { padding: 100px 20px 60px; }
     .hero-headline { font-size: clamp(40px, 8vw, 72px); }
     .topic-content { padding: 40px 24px; max-width: 100%; background: rgba(1,4,21,0.4) !important; }
     .topic-block { min-height: 70vh; }
     .topic-block:nth-child(even) .topic-content { margin-left: 0; }
     .topic-bg { background-position: center center; }
     .topic-bg-3 { background-position: right center; }
-    .hero-speaker-left {
-      left: -8%;
-      height: 50%;
-      max-height: 450px;
-      bottom: auto;
-      top: 10%;
-      position: fixed;
-    }
-    .hero-speaker-right {
-      right: -8%;
-      height: 53%;
-      max-height: 480px;
-      bottom: auto;
-      top: 8%;
-      position: fixed;
-    }
-    .hero-speaker-left, .hero-speaker-right {
-      will-change: transform;
-    }
-    .speakers-section, .why-now, .tickets, .social-proof, .final-cta { padding: 60px 24px; }
+
+.speakers-section, .why-now, .tickets, .social-proof, .final-cta { padding: 60px 24px; }
     .speakers-grid { grid-template-columns: 1fr 1fr; }
     .speaker-card.featured { grid-column: span 2; }
     .speaker-card.headline-solo { grid-column: span 2; min-height: 300px; }
@@ -1453,8 +1409,6 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-speaker-left"><img src="david-icke-cutout.png" alt="David Icke"></div>
-  <div class="hero-speaker-right"><img src="billy-carson-cutout.png" alt="Billy Carson"></div>
   <div class="hero-text-wrap">
     <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10–12</p>
     <h1 class="hero-headline">The Truth They<br><span class="accent">Tried To Hide</span></h1>
@@ -2113,29 +2067,7 @@ function handleContactSubmit(e) {
   success.style.display = 'block';
 }
 
-// Mobile: hide fixed speakers when scrolled past hero
-(function() {
-  if (window.innerWidth > 900) return;
-  const hero = document.querySelector('.hero');
-  const left = document.querySelector('.hero-speaker-left');
-  const right = document.querySelector('.hero-speaker-right');
-  if (!hero || !left || !right) return;
 
-  window.addEventListener('scroll', () => {
-    const heroBottom = hero.offsetTop + hero.offsetHeight;
-    if (window.scrollY > heroBottom - 100) {
-      left.style.opacity = '0';
-      right.style.opacity = '0';
-    } else {
-      left.style.opacity = '1';
-      right.style.opacity = '1';
-    }
-  }, { passive: true });
-
-  // Add transition for smooth fade
-  left.style.transition = 'opacity 0.3s';
-  right.style.transition = 'opacity 0.3s';
-})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
