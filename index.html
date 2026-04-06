@@ -183,32 +183,6 @@
     overflow: hidden;
   }
 
-  /* Hero speaker cutouts */
-  .hero-speaker {
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    pointer-events: none;
-    max-height: 80%;
-  }
-
-  .hero-speaker img {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 40px rgba(0,0,0,0.7));
-  }
-
-  .hero-speaker--left {
-    left: 0;
-    height: 75%;
-  }
-
-  .hero-speaker--right {
-    right: 0;
-    height: 80%;
-  }
-
   .hero-text-wrap {
     position: relative;
     z-index: 2;
@@ -220,8 +194,6 @@
   }
 
   @media (max-width: 900px) {
-    /* hero uses same desktop background — cover handles it */
-    .hero-speaker { display: none; }
     .hero-text-wrap { padding: 20px; }
   }
 
