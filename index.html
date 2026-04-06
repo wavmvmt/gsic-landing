@@ -1376,8 +1376,21 @@
     .topic-block:nth-child(even) .topic-content { margin-left: 0; }
     .topic-bg { position: relative; inset: auto; min-height: 50vh; background-position: center top; }
     .topic-bg-3 { background-position: right top; }
-    .hero-speaker-left { left: -12%; height: 40%; max-height: 350px; bottom: auto; top: 20%; }
-    .hero-speaker-right { right: -12%; height: 43%; max-height: 380px; bottom: auto; top: 18%; }
+    .hero-speaker-left {
+      left: -5%;
+      height: 40%;
+      max-height: 350px;
+      bottom: 0;
+    }
+    .hero-speaker-right {
+      right: -5%;
+      height: 43%;
+      max-height: 380px;
+      bottom: 0;
+    }
+    .hero-speaker-left, .hero-speaker-right {
+      will-change: transform;
+    }
     .speakers-section, .why-now, .tickets, .social-proof, .final-cta { padding: 60px 24px; }
     .speakers-grid { grid-template-columns: 1fr 1fr; }
     .speaker-card.featured { grid-column: span 2; }
@@ -2095,6 +2108,24 @@ function handleContactSubmit(e) {
   form.style.display = 'none';
   success.style.display = 'block';
 }
+
+// Parallax speakers on mobile
+(function() {
+  if (window.innerWidth > 900) return;
+  const left = document.querySelector('.hero-speaker-left');
+  const right = document.querySelector('.hero-speaker-right');
+  if (!left || !right) return;
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const heroH = document.querySelector('.hero').offsetHeight;
+    if (y > heroH) return;
+    // Speakers scroll up at 40% of scroll speed (parallax)
+    const offset = y * 0.4;
+    left.style.transform = 'translateY(-' + offset + 'px)';
+    right.style.transform = 'translateY(-' + offset + 'px)';
+  }, { passive: true });
+})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
