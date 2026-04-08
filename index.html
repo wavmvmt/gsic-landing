@@ -221,7 +221,7 @@
     max-width: 1000px;
   }
 
-  .hero-headline .accent { color: var(--gold); }
+  .hero-headline .accent { color: #ff6b35; }
 
   .hero-tagline {
     font-family: 'Oswald', sans-serif;
@@ -1348,14 +1348,18 @@
     }
     .nav-links.open { display: flex; }
     .hamburger { display: flex; }
-    .hero { padding: 80px 20px 30px; min-height: auto; background-size: auto 100%; background-position: center center; }
+    .hero {
+      padding: 80px 20px 30px;
+      min-height: 100vh;
+      background: url('billy-david-hero.jpg') center top / cover no-repeat;
+      background-color: #020103;
+    }
+    .hero-text-wrap {
+      margin-top: 0;
+      padding-top: 20px;
+      background: radial-gradient(ellipse 90% 70% at 50% 30%, rgba(1,4,21,0.6) 0%, transparent 70%);
+    }
     .hero-headline { font-size: clamp(36px, 8vw, 64px); }
-    .hero-tagline { font-size: 14px; letter-spacing: 3px; margin-top: 12px; }
-    .hero-featuring { margin: 16px 0 4px; font-size: 14px; }
-    .hero-speakers-names { font-size: clamp(22px, 5vw, 36px); }
-    .hero-sub { margin: 16px 0 24px; font-size: 12px; letter-spacing: 4px; }
-    .hero-date-bar { margin-top: 20px; font-size: 11px; }
-    .urgency-badge { margin-top: 12px; }
     .topic-content { padding: 40px 24px; max-width: 100%; background: rgba(1,4,21,0.4) !important; }
     .topic-block { min-height: 70vh; }
     .topic-block:nth-child(even) .topic-content { margin-left: 0; }
@@ -1421,18 +1425,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text-wrap">
-    <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10–12</p>
+    <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10th–12th</p>
     <h1 class="hero-headline">The Truth They<br><span class="accent">Tried To Hide</span></h1>
-    <p class="hero-tagline">The Future of Truth & Consciousness</p>
-    <p class="hero-featuring">Featuring</p>
-    <p class="hero-speakers-names">David Icke · Billy Carson · 20+ Speakers</p>
-    <p class="hero-sub">3 Days · Disclosure · Ancient Mysteries · Awakening</p>
-    <div class="hero-cta-group">
+    <div class="hero-cta-group" style="margin-top: 40px;">
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="hero-cta">Get Tickets Now</a>
-      <a href="#speakers" class="hero-cta-secondary">See All Speakers</a>
     </div>
-    <p class="hero-date-bar">Congress Theatre · Eastbourne, UK · <span>September 10–12, 2026</span></p>
-    <div class="urgency-badge">Limited Seats Remaining</div>
   </div>
 </section>
 
@@ -1454,6 +1451,7 @@
       <div class="topic-tag">Ancient History</div>
       <h2 class="topic-headline">Ancient Civilisations.<br>Forbidden Knowledge.</h2>
       <p class="topic-body">Suppressed archaeology. Redacted timelines. The truth about who built the megalithic structures — and why you were never told. Praveen Mohan and others reveal what mainstream academia refuses to acknowledge.</p>
+      <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="hero-cta" style="margin-top:24px; display:inline-block;">Buy Tickets Now</a>
     </div>
   </div>
 
@@ -1466,6 +1464,7 @@
       <div class="topic-tag">Mind Control</div>
       <h2 class="topic-headline">MK Ultra.<br>Mind Control.<br>Inside The White House.</h2>
       <p class="topic-body">Cathy O'Brien has been speaking out for over 35 years on her experience inside MK Ultra — on a White House and Pentagon level. Knowledge is your defense. This is your briefing.</p>
+      <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="hero-cta" style="margin-top:24px; display:inline-block;">Buy Tickets Now</a>
     </div>
   </div>
 
@@ -1478,6 +1477,7 @@
       <div class="topic-tag">Disclosure</div>
       <h2 class="topic-headline">The Secret Space Program<br>Is Real.</h2>
       <p class="topic-body">Advanced technology. Off-planet operations. The American Military Space Fleet. Dr. Michael Salla, Emery Smith, and JP bring never-before-released intel to the GSIC stage. You'll hear it here first.</p>
+      <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="hero-cta" style="margin-top:24px; display:inline-block;">Buy Tickets Now</a>
     </div>
   </div>
 
@@ -1701,56 +1701,60 @@
   <div class="ticket-grid">
 
     <div class="ticket-card">
-      <p class="ticket-tier">Tier 3</p>
-      <div class="ticket-price"><sup>£</sup>XXX</div>
-      <p class="ticket-period">Full 3-Day Event</p>
+      <p class="ticket-tier">Early Bird: Tier 3</p>
+      <div class="ticket-price"><sup>£</sup>270</div>
+      <p class="ticket-period" style="color:var(--muted); font-size:11px;">~€315 / ~$340</p>
+      <p class="ticket-period">Grand Circle Section (Upper Balcony)</p>
       <ul class="ticket-features">
-        <li>Full attendance — all 3 days</li>
-        <li>All speaker sessions & panels</li>
-        <li>Sky Watch night event</li>
-        <li>15% group discount (3+ tickets)</li>
+        <li>Grand Circle Section seating</li>
+        <li>Complete 3-day event</li>
+        <li>GSIC branded notebook</li>
+        <li>Refreshments during conference</li>
       </ul>
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="btn btn-ghost">Get Tier 3 Ticket</a>
     </div>
 
     <div class="ticket-card">
-      <p class="ticket-tier">Tier 2</p>
-      <div class="ticket-price"><sup>£</sup>XXX</div>
-      <p class="ticket-period">Full 3-Day Event</p>
+      <p class="ticket-tier">Early Bird: Tier 2</p>
+      <div class="ticket-price"><sup>£</sup>315</div>
+      <p class="ticket-period" style="color:var(--muted); font-size:11px;">~€370 / ~$400</p>
+      <p class="ticket-period">Raised Stalls Section (First Balcony)</p>
       <ul class="ticket-features">
-        <li>Everything in Tier 3</li>
-        <li>Improved seating location</li>
-        <li>Continental breakfast each morning</li>
-        <li>Book signing opportunities</li>
+        <li>Raised Stalls Section seating (First Balcony)</li>
+        <li>Complete 3-day event</li>
+        <li>GSIC branded notebook</li>
+        <li>Refreshments during conference</li>
       </ul>
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="btn btn-ghost">Get Tier 2 Ticket</a>
     </div>
 
     <div class="ticket-card">
-      <p class="ticket-tier">Tier 1</p>
-      <div class="ticket-price"><sup>£</sup>XXX</div>
-      <p class="ticket-period">Full 3-Day Event</p>
+      <p class="ticket-tier">Early Bird: Tier 1</p>
+      <div class="ticket-price"><sup>£</sup>352</div>
+      <p class="ticket-period" style="color:var(--muted); font-size:11px;">~€410 / ~$445</p>
+      <p class="ticket-period">Stalls Section (Lower Level / Main Floor)</p>
       <ul class="ticket-features">
-        <li>Everything in Tier 2</li>
-        <li>Priority seating</li>
-        <li>Complete event video recording</li>
-        <li>Priority book signing line</li>
+        <li>Stalls Section seating (Lower Level / Main Floor)</li>
+        <li>Complete 3-day event</li>
+        <li>GSIC branded notebook</li>
+        <li>Refreshments during conference</li>
       </ul>
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="btn btn-ghost">Get Tier 1 Ticket</a>
     </div>
 
     <div class="ticket-card featured-ticket">
-      <div class="popular-badge">Best Value</div>
-      <p class="ticket-tier">Premium</p>
-      <div class="ticket-price"><sup>£</sup>XXX</div>
-      <p class="ticket-period">Full 3-Day VIP Experience</p>
+      <div class="popular-badge">Limited — 300 Seats Only</div>
+      <p class="ticket-tier">Early Bird: Premium</p>
+      <div class="ticket-price"><sup>£</sup>450</div>
+      <p class="ticket-period" style="color:var(--muted); font-size:11px;">~€525 / ~$570</p>
+      <p class="ticket-period">Stalls Section + Meet & Greet</p>
       <ul class="ticket-features">
-        <li>Everything in Tier 1</li>
-        <li>Front-row premium seating</li>
-        <li>Saturday Dinner + Disco evening</li>
-        <li>Exclusive meet & greet with speakers</li>
-        <li>Early registration priority access</li>
-        <li>Lifetime video recording access</li>
+        <li>Front rows / best view seats (Stalls Section)</li>
+        <li>Meet & Greet luncheon with all speakers</li>
+        <li>GSIC branded tote bag & notebook</li>
+        <li>Full conference recordings (valued at £180)</li>
+        <li>Refreshments during conference</li>
+        <li>Complete 3-day event</li>
       </ul>
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="btn btn-gold">Get Premium Ticket</a>
     </div>
