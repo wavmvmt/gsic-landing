@@ -27,13 +27,13 @@
   /* ── CUSTOM CURSOR ── */
   .cursor-orb {
     position: fixed;
-    width: 52px;
-    height: 52px;
+    width: 72px;
+    height: 72px;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
     transition: transform 0.2s, filter 0.2s;
-    filter: drop-shadow(0 0 8px rgba(212,175,55,0.6)) drop-shadow(0 0 20px rgba(212,175,55,0.3));
+    filter: drop-shadow(0 0 10px rgba(212,175,55,0.7)) drop-shadow(0 0 25px rgba(212,175,55,0.35));
   }
 
   .cursor-orb svg {
@@ -42,25 +42,21 @@
   }
 
   .cursor-orb.hovering {
-    transform: translate(-50%, -50%) scale(1.4);
-    filter: drop-shadow(0 0 12px rgba(212,175,55,0.8)) drop-shadow(0 0 30px rgba(212,175,55,0.5));
+    transform: translate(-50%, -50%) scale(1.3);
+    filter: drop-shadow(0 0 14px rgba(212,175,55,0.9)) drop-shadow(0 0 35px rgba(212,175,55,0.5));
   }
 
-  .cursor-trail {
+  .cursor-trail-dot {
     position: fixed;
-    width: 6px;
-    height: 6px;
     border-radius: 50%;
-    background: rgba(212,175,55,0.5);
     pointer-events: none;
     z-index: 9998;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px rgba(212,175,55,0.3);
   }
 
   @media (max-width: 900px) {
     * { cursor: auto !important; }
-    .cursor-orb, .cursor-trail { display: none; }
+    .cursor-orb, .cursor-trail-dot { display: none; }
   }
 
   body {
@@ -1449,7 +1445,7 @@
 
 <!-- CUSTOM CURSOR -->
 <div class="cursor-orb" id="cursor-orb"><svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="32" cy="24" rx="28" ry="10" fill="url(#ufo-body)"/><ellipse cx="32" cy="22" rx="18" ry="12" fill="url(#ufo-dome)"/><ellipse cx="32" cy="26" rx="30" ry="4" fill="rgba(212,175,55,0.15)"/><circle cx="18" cy="26" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="32" cy="28" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="46" cy="26" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite" begin="0.4s"/></circle><line x1="32" y1="30" x2="32" y2="40" stroke="rgba(212,175,55,0.3)" stroke-width="6" stroke-linecap="round"/><defs><radialGradient id="ufo-body"><stop offset="0%" stop-color="#8a8a8a"/><stop offset="100%" stop-color="#3a3a3a"/></radialGradient><radialGradient id="ufo-dome"><stop offset="0%" stop-color="rgba(200,220,255,0.6)"/><stop offset="100%" stop-color="rgba(100,120,160,0.3)"/></radialGradient></defs></svg></div>
-<div class="cursor-trail" id="cursor-trail"></div>
+<div id="cursor-trails"></div>
 
 <!-- EARTH VIDEO BACKGROUND (speakers onwards) -->
 <div id="earth-video-container">
@@ -2103,14 +2099,30 @@ document.querySelectorAll('.topic-content, .divider-line').forEach(el => {
   fadeObserver.observe(el);
 });
 
-// Custom cursor
+// Custom cursor with light trails
 (function() {
   const orb = document.getElementById('cursor-orb');
-  const trail = document.getElementById('cursor-trail');
-  if (!orb || !trail) return;
+  const trailContainer = document.getElementById('cursor-trails');
+  if (!orb || !trailContainer) return;
 
+  const TRAIL_COUNT = 8;
+  const trails = [];
   let mx = 0, my = 0;
-  let tx = 0, ty = 0;
+
+  // Create trail dots with decreasing size and opacity
+  for (let i = 0; i < TRAIL_COUNT; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'cursor-trail-dot';
+    const t = i / TRAIL_COUNT;
+    const size = 8 - (t * 6);           // 8px → 2px
+    const opacity = 0.5 - (t * 0.45);   // 0.5 → 0.05
+    dot.style.width = size + 'px';
+    dot.style.height = size + 'px';
+    dot.style.background = `rgba(212,175,55,${opacity})`;
+    dot.style.boxShadow = `0 0 ${6 - t * 4}px rgba(212,175,55,${opacity * 0.6})`;
+    trailContainer.appendChild(dot);
+    trails.push({ el: dot, x: 0, y: 0 });
+  }
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX;
@@ -2119,15 +2131,19 @@ document.querySelectorAll('.topic-content, .divider-line').forEach(el => {
     orb.style.top = my + 'px';
   });
 
-  // Trail follows with delay
-  function animateTrail() {
-    tx += (mx - tx) * 0.15;
-    ty += (my - ty) * 0.15;
-    trail.style.left = tx + 'px';
-    trail.style.top = ty + 'px';
-    requestAnimationFrame(animateTrail);
+  // Each dot follows the one ahead of it
+  function animateTrails() {
+    for (let i = 0; i < trails.length; i++) {
+      const target = i === 0 ? { x: mx, y: my } : trails[i - 1];
+      const lerp = 0.2 - (i * 0.015);   // faster dots up front, slower at tail
+      trails[i].x += (target.x - trails[i].x) * lerp;
+      trails[i].y += (target.y - trails[i].y) * lerp;
+      trails[i].el.style.left = trails[i].x + 'px';
+      trails[i].el.style.top = trails[i].y + 'px';
+    }
+    requestAnimationFrame(animateTrails);
   }
-  animateTrail();
+  animateTrails();
 
   // Grow on hover over clickable elements
   document.addEventListener('mouseover', e => {
