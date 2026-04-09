@@ -42,12 +42,12 @@
     transition: filter 0.3s;
   }
 
-  /* On light backgrounds: darken the UFO */
+  /* On light backgrounds: shift to vibrant deep purple/blue */
   .cursor-orb.on-light {
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.4)) drop-shadow(0 0 20px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 0 10px rgba(100,50,200,0.7)) drop-shadow(0 0 25px rgba(100,50,200,0.35));
   }
   .cursor-orb.on-light svg {
-    filter: brightness(0.35) saturate(1.5);
+    filter: hue-rotate(220deg) saturate(2) brightness(0.7);
   }
 
   .cursor-orb.hovering {
@@ -55,7 +55,7 @@
     filter: drop-shadow(0 0 14px rgba(212,175,55,0.9)) drop-shadow(0 0 35px rgba(212,175,55,0.5));
   }
   .cursor-orb.hovering.on-light {
-    filter: drop-shadow(0 0 14px rgba(0,0,0,0.5)) drop-shadow(0 0 30px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 0 14px rgba(100,50,200,0.9)) drop-shadow(0 0 35px rgba(100,50,200,0.5));
   }
 
   .cursor-trail-dot {
@@ -2175,8 +2175,8 @@ document.querySelectorAll('.topic-content, .divider-line').forEach(el => {
       isOnLight = shouldBeLight;
       orb.classList.toggle('on-light', isOnLight);
 
-      // Update trail dot colors
-      const trailColor = isOnLight ? '40,30,10' : '212,175,55';
+      // Update trail dot colors — purple on light, gold on dark
+      const trailColor = isOnLight ? '120,60,220' : '212,175,55';
       trails.forEach((trail, i) => {
         const t = i / TRAIL_COUNT;
         const opacity = 0.5 - (t * 0.45);
