@@ -135,7 +135,7 @@
   .nav-links a:hover { color: var(--gold); }
 
   .nav-cta {
-    background: linear-gradient(135deg, #4fc3f7, #0288d1) !important;
+    background: linear-gradient(135deg, #D4AF37, #b8932e) !important; color: var(--black) !important;
     color: white !important;
     padding: 10px 22px !important;
     font-weight: 600 !important;
@@ -143,7 +143,7 @@
     transition: background .2s !important;
   }
 
-  .nav-cta:hover { background: linear-gradient(135deg, #81d4fa, #039be5) !important; }
+  .nav-cta:hover { background: linear-gradient(135deg, #e8c84a, #D4AF37) !important; }
 
   /* Mobile hamburger */
   .hamburger {
@@ -276,8 +276,8 @@
 
   .hero-cta {
     display: inline-block;
-    background: linear-gradient(135deg, #4fc3f7, #0288d1);
-    color: white;
+    background: linear-gradient(135deg, #D4AF37, #b8932e);
+    color: var(--black);
     font-family: 'Oswald', sans-serif;
     font-size: 18px;
     font-weight: 600;
@@ -301,7 +301,7 @@
     transition: transform .5s;
   }
 
-  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(79,195,247,0.5); }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(212,175,55,0.5); }
   .hero-cta:hover::before { transform: translateX(100%); }
 
   .hero-cta-secondary {
@@ -425,8 +425,8 @@
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    padding-bottom: 46%; /* wider cinematic ratio */
-    height: 0;
+    /* Use aspect-ratio for consistent widescreen across all devices */
+    aspect-ratio: 21 / 9;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 8px 60px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.08);
@@ -438,6 +438,11 @@
     width: 100%;
     height: 100%;
     border: none;
+  }
+
+  @media (max-width: 600px) {
+    .video-section { padding: 50px 16px; }
+    .video-wrapper { aspect-ratio: 16 / 9; border-radius: 6px; }
   }
 
   /* ── TOPICS ── */
@@ -1438,6 +1443,8 @@
     .speaker-card.featured, .speaker-card.headline-solo { grid-column: span 1; }
     .ticket-grid { grid-template-columns: 1fr; }
     .hero-cta-group { flex-direction: column; align-items: center; }
+    .hero-featuring { font-size: 14px !important; letter-spacing: 2px !important; }
+    .hero-sub { font-size: 12px !important; letter-spacing: 3px !important; }
   }
 </style>
 </head>
