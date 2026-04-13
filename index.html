@@ -222,7 +222,7 @@
     justify-content: center;
     padding: 120px 20px 80px;
     text-align: center;
-    background: url('hero-bg.jpg') 45% center / cover no-repeat;
+    background: url('billy-david-hero.jpg') center 10% / cover no-repeat;
     background-color: #020103;
     overflow: hidden;
   }
@@ -231,7 +231,7 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(1,4,21,0.45) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(1,4,21,0.25) 0%, transparent 70%);
     padding: 40px 60px;
     border-radius: 8px;
     max-width: 800px;
@@ -651,7 +651,21 @@
   }
 
   .speaker-card.featured .speaker-photo {
-    object-position: center 10%;
+    object-position: center top;
+  }
+  /* Cutout PNGs — show against card background, reduce filter */
+  .speaker-card[data-speaker="david-icke"] .speaker-photo,
+  .speaker-card[data-speaker="billy-carson"] .speaker-photo {
+    object-position: center top;
+    object-fit: cover;
+    filter: grayscale(0%) contrast(1.05);
+    background: transparent;
+  }
+  /* Billy: scale down slightly so full body shows in tall featured card */
+  .speaker-card[data-speaker="billy-carson"] .speaker-photo {
+    object-fit: contain;
+    object-position: center bottom;
+    background: var(--card);
   }
 
   .speaker-card.headline-solo {
@@ -1670,7 +1684,7 @@
 
     <!-- Featured: David Icke -->
     <div class="speaker-card featured" data-speaker="david-icke" data-row="1">
-      <img class="speaker-photo" src="David Icke.avif" alt="David Icke" loading="lazy">
+      <img class="speaker-photo" src="david-icke-cutout.png" alt="David Icke" loading="lazy">
       <div class="speaker-overlay">
         <div class="featured-badge">Headline Speaker</div>
         <p class="speaker-title">Author · Researcher · Visionary</p>
@@ -1682,7 +1696,7 @@
 
     <!-- Featured: Billy Carson -->
     <div class="speaker-card featured" data-speaker="billy-carson" data-row="1">
-      <img class="speaker-photo" src="Billy Carson.avif" alt="Billy Carson" loading="lazy">
+      <img class="speaker-photo" src="billy-carson-cutout.png" alt="Billy Carson" loading="lazy">
       <div class="speaker-overlay">
         <div class="featured-badge">Headline Speaker</div>
         <p class="speaker-title">Consciousness · Science · History</p>
