@@ -222,7 +222,7 @@
     justify-content: center;
     padding: 120px 20px 80px;
     text-align: center;
-    background: url('hero-bg.jpg') center center / cover no-repeat;
+    background: url('hero-bg.jpg') 45% center / cover no-repeat;
     background-color: #020103;
     overflow: hidden;
   }
@@ -651,7 +651,7 @@
   }
 
   .speaker-card.featured .speaker-photo {
-    object-position: center 20%;
+    object-position: center 10%;
   }
 
   .speaker-card.headline-solo {
@@ -1351,7 +1351,7 @@
   /* ── MUSIC TOGGLE ── */
   .music-toggle {
     position: fixed;
-    bottom: 32px;
+    bottom: max(32px, calc(16px + env(safe-area-inset-bottom)));
     left: 32px;
     z-index: 99;
     width: 48px;
@@ -1381,12 +1381,14 @@
   }
   @media (max-width: 900px) {
     .music-toggle { bottom: 20px; left: 20px; width: 40px; height: 40px; font-size: 17px; }
+  .scroll-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
+  .scroll-top svg { width: 18px; height: 18px; }
   }
 
   /* ── SCROLL TO TOP ── */
   .scroll-top {
     position: fixed;
-    bottom: 32px;
+    bottom: max(32px, calc(16px + env(safe-area-inset-bottom)));
     right: 32px;
     z-index: 99;
     width: 48px;
@@ -1426,6 +1428,7 @@
   footer {
     background: rgba(1,4,21,0.35);
     padding: 40px 80px;
+    padding-bottom: max(40px, calc(24px + env(safe-area-inset-bottom)));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1464,6 +1467,7 @@
       display: none;
       position: fixed;
       top: 64px;
+      padding-top: max(24px, calc(12px + env(safe-area-inset-top)));
       left: 0;
       right: 0;
       background: rgba(1,4,21,0.85);
@@ -1497,8 +1501,8 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 55%;
-      background: linear-gradient(to top, rgba(6,8,20,1) 0%, rgba(6,8,20,1) 35%, rgba(6,8,20,0.97) 60%, rgba(6,8,20,0.5) 82%, transparent 100%);
+      height: 65%;
+      background: linear-gradient(to top, rgba(6,8,20,1) 0%, rgba(6,8,20,1) 40%, rgba(6,8,20,0.97) 65%, rgba(6,8,20,0.5) 85%, transparent 100%);
       z-index: 1;
       pointer-events: none;
     }
@@ -1512,7 +1516,9 @@
     .topic-bg-2 { background-position: 30% center; }
     .topic-bg-3 { background-position: right center; }
 
-.speakers-section, .why-now, .tickets, .social-proof, .final-cta { padding: 60px 24px; }
+.speakers-section, .why-now, .tickets, .social-proof, .final-cta, .contact-section { padding: 60px 24px; }
+    .ticket-card { padding: 28px 20px; }
+    .ticket-price { font-size: 48px; }
     .speakers-grid { grid-template-columns: 1fr 1fr; }
     .speaker-card.featured { grid-column: span 2; }
     .speaker-card.headline-solo { grid-column: span 2; min-height: 300px; }
@@ -1522,6 +1528,8 @@
     .stat-row { gap: 40px; flex-wrap: wrap; }
     footer { flex-direction: column; gap: 20px; text-align: center; }
     .divider-line { padding: 18px 24px; }
+    .speaker-bio-short { max-height: 80px; overflow: hidden; opacity: 0.85; }
+    .speaker-learn-more { opacity: 1; transform: translateY(0); }
   }
 
   @media (max-width: 600px) {
@@ -1531,6 +1539,10 @@
     .hero-cta-group { flex-direction: column; align-items: center; }
     .hero-featuring { font-size: 14px !important; letter-spacing: 2px !important; }
     .hero-sub { font-size: 12px !important; letter-spacing: 3px !important; }
+    .stat-row { gap: 24px; }
+    .stat-number { font-size: 48px; }
+    .proof-card { padding: 28px 20px; }
+    .expand-content { min-width: 0; width: 100%; }
   }
 </style>
 </head>
