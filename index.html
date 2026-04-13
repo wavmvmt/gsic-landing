@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GSIC 2026 UK – The Future of Truth & Consciousness</title>
-<meta name="description" content="Galactic Spiritual Informers Conference UK 2026. David Icke, Billy Carson & 20+ world-class speakers. September 10-12, Congress Theatre, Eastbourne. Get tickets now.">
+<meta name="description" content="Galactic Spiritual Informers Conference UK 2026. David Icke, Billy Carson & 10 world-class speakers. September 10-12, Congress Theatre, Eastbourne. Get tickets now.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -19,6 +19,8 @@
     --red-bright: #ff1111;
     --white: #f5f5f5;
     --muted: #888;
+    --blue: #1B6FBD;
+    --blue-light: #2480d4;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -158,7 +160,8 @@
     color: var(--white);
   }
 
-  .nav-logo span { color: var(--gold); }
+  .nav-logo .g { color: var(--gold); }
+  .nav-logo .sic { color: var(--blue); }
 
   .nav-links {
     display: flex;
@@ -1344,6 +1347,42 @@
     .contact-form .btn-submit { grid-column: span 1; }
   }
 
+
+  /* ── MUSIC TOGGLE ── */
+  .music-toggle {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    z-index: 99;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(1,4,21,0.85);
+    border: 1px solid rgba(212,175,55,0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s, border-color 0.3s, background 0.3s;
+    color: var(--gold);
+    font-size: 20px;
+    line-height: 1;
+  }
+  .music-toggle:hover {
+    opacity: 1;
+    border-color: var(--gold);
+    background: rgba(1,4,21,0.95);
+  }
+  .music-toggle.playing {
+    opacity: 1;
+    border-color: var(--gold);
+    box-shadow: 0 0 16px rgba(212,175,55,0.3);
+  }
+  @media (max-width: 900px) {
+    .music-toggle { bottom: 20px; left: 20px; width: 40px; height: 40px; font-size: 17px; }
+  }
+
   /* ── SCROLL TO TOP ── */
   .scroll-top {
     position: fixed;
@@ -1399,7 +1438,8 @@
     letter-spacing: 4px;
   }
 
-  .footer-logo span { color: var(--gold); }
+  .footer-logo .g { color: var(--gold); }
+  .footer-logo .sic { color: var(--blue); }
 
   footer p {
     font-size: 15px;
@@ -1497,7 +1537,7 @@
 <body>
 
 <!-- CUSTOM CURSOR -->
-<div class="cursor-orb" id="cursor-orb"><svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="32" cy="24" rx="28" ry="10" fill="url(#ufo-body)"/><ellipse cx="32" cy="22" rx="18" ry="12" fill="url(#ufo-dome)"/><ellipse cx="32" cy="26" rx="30" ry="4" fill="rgba(212,175,55,0.15)"/><circle cx="18" cy="26" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="32" cy="28" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="46" cy="26" r="2.5" fill="#D4AF37" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.2s" repeatCount="indefinite" begin="0.4s"/></circle><line x1="32" y1="30" x2="32" y2="40" stroke="rgba(212,175,55,0.3)" stroke-width="6" stroke-linecap="round"/><defs><radialGradient id="ufo-body"><stop offset="0%" stop-color="#8a8a8a"/><stop offset="100%" stop-color="#3a3a3a"/></radialGradient><radialGradient id="ufo-dome"><stop offset="0%" stop-color="rgba(200,220,255,0.6)"/><stop offset="100%" stop-color="rgba(100,120,160,0.3)"/></radialGradient></defs></svg></div>
+<div class="cursor-orb" id="cursor-orb"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" fill="rgba(1,4,21,0.85)" stroke="#D4AF37" stroke-width="1.5"/><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(212,175,55,0.25)" stroke-width="0.5"/><text x="32" y="38" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" letter-spacing="1" fill="#D4AF37">GSIC</text></svg></div>
 <div id="cursor-trails"></div>
 
 <!-- EARTH VIDEO BACKGROUND (speakers onwards) -->
@@ -1506,6 +1546,13 @@
     <source src="06-earth.mp4" type="video/mp4">
   </video>
 </div>
+
+<!-- MUSIC TOGGLE -->
+<button class="music-toggle" id="music-toggle" title="Toggle music" onclick="toggleMusic()">&#9834;</button>
+<audio id="bg-music" loop preload="none">
+  <source src="https://archive.org/download/holst-planets-bso-1972/01-mars-the-bringer-of-war.mp3" type="audio/mpeg">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Holst-_The_Planets%2C_Op._32-_I._Mars%2C_the_Bringer_of_War.ogg" type="audio/ogg">
+</audio>
 
 <!-- SCROLL TO TOP BUTTON -->
 <button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -1517,7 +1564,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><span>G</span>SIC</div>
+  <div class="nav-logo"><span class="g">G</span><span class="sic">SIC</span></div>
   <div class="hamburger" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('open');">
     <span></span><span></span><span></span>
   </div>
@@ -1535,7 +1582,7 @@
   <div class="hero-text-wrap">
     <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10th–12th</p>
     <h1 class="hero-headline">The Truth They<br><span class="accent">Tried To Hide</span></h1>
-    <p class="hero-featuring">Featuring David Icke, Billy Carson & 20+ Speakers</p>
+    <p class="hero-featuring">Featuring David Icke, Billy Carson & 10 World-Class Speakers</p>
     <p class="hero-sub">3 Days · Disclosure · Ancient Mysteries · Awakening</p>
     <div class="hero-cta-group" style="margin-top: 24px;">
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="hero-cta">Get Tickets Now</a>
@@ -1594,7 +1641,7 @@
     <div class="topic-content">
       <div class="topic-tag">Disclosure</div>
       <h2 class="topic-headline">The Secret Space Program<br>Is Real.</h2>
-      <p class="topic-body">Advanced technology. Off-planet operations. The American Military Space Fleet. Dr. Michael Salla, Emery Smith, and JP bring never-before-released intel to the GSIC stage. You'll hear it here first.</p>
+      <p class="topic-body">Advanced technology. Off-planet operations. The American Military Space Fleet. JP and Tony Rodrigues bring never-before-released intel to the GSIC stage. First-hand accounts you will not hear anywhere else.</p>
       <a href="https://events.humanitix.com/gsic2026-uk/tickets" target="_blank" class="hero-cta" style="margin-top:24px; display:inline-block;">Buy Tickets Now</a>
     </div>
   </div>
@@ -1605,7 +1652,7 @@
 <section class="speakers-section" id="speakers">
   <p class="section-label">World-Class Lineup</p>
   <h2 class="section-title">GSIC2026-UK Conference Speakers</h2>
-  <p class="speakers-subtitle">Renowned researchers, survivors, experiencers, and pioneers — gathered in one place. Click any speaker to learn more.</p>
+  <p class="speakers-subtitle">10 of the world's best disclosure experts — researchers, survivors, experiencers, and pioneers. Click any speaker to learn more.</p>
 
   <div class="speakers-grid">
 
@@ -1778,15 +1825,15 @@
   <div class="proof-grid">
     <div class="proof-card">
       <p class="proof-quote">I want to thank you so much for the GSIC in Orlando. It truly was life changing. You brought together such wonderful speakers, and together with the people who were drawn to attend made it amazing.</p>
-      <p class="proof-author">Verified Attendee, <span>GSIC Orlando</span></p>
+      <p class="proof-author">Verified Attendee, <span>GSIC 2022 · Orlando</span></p>
     </div>
     <div class="proof-card">
       <p class="proof-quote">I've been to a lot of conferences. Nothing compares. This is the one event where the speakers actually say what they're not allowed to say anywhere else.</p>
-      <p class="proof-author">Verified Attendee, <span>GSIC 2024</span></p>
+      <p class="proof-author">Verified Attendee, <span>GSIC 2024 · Colorado</span></p>
     </div>
     <div class="proof-card">
       <p class="proof-quote">Three days that completely rewired how I see the world. The sky watch alone was worth the flight. I'll be back every year, this community is unlike anything else.</p>
-      <p class="proof-author">Verified Attendee, <span>GSIC UK 2025</span></p>
+      <p class="proof-author">Verified Attendee, <span>GSIC 2025 · England</span></p>
     </div>
   </div>
 
@@ -1796,7 +1843,7 @@
       <p class="stat-label">Days of Truth</p>
     </div>
     <div class="stat-item">
-      <span class="stat-number">20+</span>
+      <span class="stat-number">10</span>
       <p class="stat-label">World-Class Speakers</p>
     </div>
     <div class="stat-item">
@@ -1825,6 +1872,7 @@
       <p class="ticket-period">Grand Circle Section (Upper Balcony)</p>
       <ul class="ticket-features">
         <li>Grand Circle Section seating</li>
+        <li>Special Evening with Dani Henderson, Nicky Alan &amp; Cathy O'Brien (Thu, Sep 10)</li>
         <li>Complete 3-day event</li>
         <li>GSIC branded notebook</li>
         <li>Refreshments during conference</li>
@@ -1839,6 +1887,7 @@
       <p class="ticket-period">Raised Stalls Section (First Balcony)</p>
       <ul class="ticket-features">
         <li>Raised Stalls Section seating (First Balcony)</li>
+        <li>Special Evening with Dani Henderson, Nicky Alan &amp; Cathy O'Brien (Thu, Sep 10)</li>
         <li>Complete 3-day event</li>
         <li>GSIC branded notebook</li>
         <li>Refreshments during conference</li>
@@ -1853,6 +1902,7 @@
       <p class="ticket-period">Stalls Section (Lower Level / Main Floor)</p>
       <ul class="ticket-features">
         <li>Stalls Section seating (Lower Level / Main Floor)</li>
+        <li>Special Evening with Dani Henderson, Nicky Alan &amp; Cathy O'Brien (Thu, Sep 10)</li>
         <li>Complete 3-day event</li>
         <li>GSIC branded notebook</li>
         <li>Refreshments during conference</li>
@@ -1868,6 +1918,7 @@
       <p class="ticket-period">Stalls Section + Meet & Greet</p>
       <ul class="ticket-features">
         <li>Front rows / best view seats (Stalls Section)</li>
+        <li>Special Evening with Dani Henderson, Nicky Alan &amp; Cathy O'Brien (Thu, Sep 10)</li>
         <li>Meet & Greet luncheon with all speakers</li>
         <li>GSIC branded tote bag & notebook</li>
         <li>Full conference recordings (valued at £180)</li>
@@ -1907,10 +1958,11 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><span>G</span>SIC</div>
+  <div class="footer-logo"><span class="g">G</span><span class="sic">SIC</span></div>
   <p>© 2026 Galactic Spiritual Informers Connection. All rights reserved.</p>
   <div style="display:flex;gap:24px;flex-wrap:wrap;">
-    <a href="https://www.instagram.com/galacticspiritualinfomers/" target="_blank">Instagram</a>
+    <a href="https://www.instagram.com/danihendersongsic/" target="_blank">Dani's Instagram</a>
+    <a href="https://www.instagram.com/galacticspiritualinformers/" target="_blank">GSIC Instagram</a>
     <a href="https://www.facebook.com/groups/773003301032359" target="_blank">Facebook</a>
     <a href="https://youtube.com/@danihenderson-GSIC" target="_blank">YouTube</a>
     <a href="mailto:info@galacticspiritualinformers.com">Contact Us</a>
@@ -2303,6 +2355,74 @@ function handleContactSubmit(e) {
 }
 
 
+
+
+// Background music
+(function() {
+  const audio = document.getElementById('bg-music');
+  const btn = document.getElementById('music-toggle');
+  let started = false;
+  let playing = false;
+
+  function startMusic() {
+    if (started) return;
+    started = true;
+    audio.volume = 0;
+    audio.play().then(() => {
+      playing = true;
+      btn.classList.add('playing');
+      btn.innerHTML = '&#9834;';
+      let v = 0;
+      const fade = setInterval(() => {
+        v = Math.min(v + 0.02, 0.35);
+        audio.volume = v;
+        if (v >= 0.35) clearInterval(fade);
+      }, 80);
+    }).catch(() => {});
+  }
+
+  window.toggleMusic = function() {
+    if (!started) {
+      startMusic();
+      return;
+    }
+    if (playing) {
+      let v = audio.volume;
+      const fade = setInterval(() => {
+        v = Math.max(v - 0.03, 0);
+        audio.volume = v;
+        if (v <= 0) {
+          clearInterval(fade);
+          audio.pause();
+          playing = false;
+          btn.classList.remove('playing');
+          btn.innerHTML = '&#9834;';
+        }
+      }, 60);
+    } else {
+      audio.play().then(() => {
+        playing = true;
+        btn.classList.add('playing');
+        btn.innerHTML = '&#9834;';
+        let v = 0;
+        const fade = setInterval(() => {
+          v = Math.min(v + 0.02, 0.35);
+          audio.volume = v;
+          if (v >= 0.35) clearInterval(fade);
+        }, 80);
+      }).catch(() => {});
+    }
+  };
+
+  // Auto-start on first meaningful interaction (click or scroll)
+  function handleFirstInteraction() {
+    startMusic();
+    window.removeEventListener('click', handleFirstInteraction);
+    window.removeEventListener('scroll', handleFirstInteraction);
+  }
+  window.addEventListener('click', handleFirstInteraction, { once: true, passive: true });
+  window.addEventListener('scroll', handleFirstInteraction, { once: true, passive: true });
+})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
