@@ -94,19 +94,16 @@
     filter: drop-shadow(0 0 14px rgba(100,50,200,0.9)) drop-shadow(0 0 35px rgba(100,50,200,0.5));
   }
 
-  /* Click animation: UFO does a barrel roll + beam burst */
-  @keyframes ufoBarrelRoll {
-    0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-    15%  { transform: translate(-50%, -80%) rotate(60deg) scale(1.3); }
-    30%  { transform: translate(0%, -120%) rotate(180deg) scale(1.5); }
-    50%  { transform: translate(50%, -80%) rotate(360deg) scale(1.3); }
-    65%  { transform: translate(30%, -20%) rotate(480deg) scale(1.1); }
-    80%  { transform: translate(0%, 20%) rotate(640deg) scale(0.9); }
-    100% { transform: translate(-50%, -50%) rotate(720deg) scale(1); }
+  /* Click animation: subtle pulse ring */
+  @keyframes cursorPulse {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    40%  { transform: translate(-50%, -50%) scale(1.25); }
+    70%  { transform: translate(-50%, -50%) scale(0.95); }
+    100% { transform: translate(-50%, -50%) scale(1); }
   }
 
   .cursor-orb.clicked {
-    animation: ufoBarrelRoll 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: cursorPulse 0.35s ease-out forwards;
     pointer-events: none;
   }
 
@@ -188,10 +185,35 @@
   }
 
   .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .nav-brand-top {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    letter-spacing: 4px;
-    color: var(--white);
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .nav-brand-bottom {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3.5px;
+    color: var(--blue);
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-weight: 400;
   }
 
   .nav-logo .g { color: var(--gold); }
@@ -256,23 +278,157 @@
     justify-content: center;
     padding: 120px 20px 80px;
     text-align: center;
-    background: url('billy-david-hero.jpg') center 10% / cover no-repeat;
-    background-color: #020103;
+    background: #020103;
     overflow: hidden;
   }
 
-  .hero-text-wrap {
-    position: relative;
+  /* Layer 1: Galaxy eye background */
+  .hero-galaxy-bg {
+    position: absolute;
+    inset: 0;
+    background: url('hero-bg.jpg') center center / cover no-repeat;
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  /* Layer 2: Sunray burst from center */
+  .hero-sunray {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from 0deg at 50% 52%,
+        transparent 0deg,
+        rgba(212,175,55,0.045) 4deg,
+        transparent 8deg,
+        transparent 14deg,
+        rgba(212,175,55,0.03) 18deg,
+        transparent 22deg,
+        transparent 30deg,
+        rgba(212,175,55,0.05) 34deg,
+        transparent 38deg,
+        transparent 46deg,
+        rgba(212,175,55,0.025) 50deg,
+        transparent 54deg,
+        transparent 62deg,
+        rgba(212,175,55,0.04) 66deg,
+        transparent 70deg,
+        transparent 80deg,
+        rgba(212,175,55,0.03) 84deg,
+        transparent 90deg,
+        transparent 100deg,
+        rgba(212,175,55,0.045) 104deg,
+        transparent 110deg,
+        transparent 120deg,
+        rgba(212,175,55,0.025) 124deg,
+        transparent 130deg,
+        transparent 144deg,
+        rgba(212,175,55,0.04) 148deg,
+        transparent 154deg,
+        transparent 166deg,
+        rgba(212,175,55,0.03) 170deg,
+        transparent 176deg,
+        transparent 188deg,
+        rgba(212,175,55,0.05) 192deg,
+        transparent 198deg,
+        transparent 210deg,
+        rgba(212,175,55,0.035) 214deg,
+        transparent 220deg,
+        transparent 232deg,
+        rgba(212,175,55,0.04) 236deg,
+        transparent 242deg,
+        transparent 256deg,
+        rgba(212,175,55,0.03) 260deg,
+        transparent 266deg,
+        transparent 278deg,
+        rgba(212,175,55,0.045) 282deg,
+        transparent 288deg,
+        transparent 300deg,
+        rgba(212,175,55,0.025) 304deg,
+        transparent 310deg,
+        transparent 322deg,
+        rgba(212,175,55,0.04) 326deg,
+        transparent 332deg,
+        transparent 344deg,
+        rgba(212,175,55,0.03) 348deg,
+        transparent 354deg,
+        transparent 360deg
+      );
+  }
+
+  /* Layer 3: Dark vignette overlay */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 50% 50%, transparent 20%, rgba(2,1,3,0.45) 70%, rgba(2,1,3,0.85) 100%),
+      linear-gradient(to bottom, rgba(2,1,3,0.3) 0%, transparent 30%, transparent 60%, rgba(2,1,3,0.7) 100%);
     z-index: 2;
-    text-align: center;
-    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(1,4,21,0.25) 0%, transparent 70%);
-    padding: 40px 60px;
-    border-radius: 8px;
-    max-width: 800px;
+    pointer-events: none;
+  }
+
+  /* Layer 4: Billy cutout — left side */
+  .hero-figure {
+    position: absolute;
+    bottom: 0;
+    z-index: 3;
+    pointer-events: none;
+    transition: left 0.3s ease, right 0.3s ease;
+  }
+
+  .hero-figure-billy {
+    left: 0;
+    width: clamp(220px, 28vw, 460px);
+  }
+
+  .hero-figure-david {
+    right: 0;
+    width: clamp(220px, 28vw, 460px);
+  }
+
+  .hero-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 40px rgba(0,0,0,0.8));
+  }
+
+  /* Medium screens: tighten figure positions */
+  @media (min-width: 901px) and (max-width: 1200px) {
+    .hero-figure-billy { left: -2vw; width: clamp(200px, 24vw, 360px); }
+    .hero-figure-david { right: -2vw; width: clamp(200px, 24vw, 360px); }
+    .hero-text-wrap { max-width: 560px; padding: 30px 40px; }
+  }
+
+  /* Large screens: figures can breathe */
+  @media (min-width: 1201px) {
+    .hero-figure-billy { left: 2vw; }
+    .hero-figure-david { right: 2vw; }
+  }
+
+  /* Very narrow: hide brand text to save space */
+  @media (max-width: 420px) {
+    .nav-brand-text { display: none; }
   }
 
   @media (max-width: 900px) {
     .hero-text-wrap { padding: 20px; }
+    .nav-brand-top { font-size: 14px; letter-spacing: 2px; }
+    .nav-brand-bottom { font-size: 9px; letter-spacing: 2px; }
+  }
+
+  /* Layer 5: text wrap — centered, always on top */
+  .hero-text-wrap {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 40px 60px;
+    border-radius: 8px;
+    max-width: 700px;
+    /* subtle dark pill so text always readable */
+    background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(2,1,3,0.35) 0%, transparent 80%);
   }
 
   .hero-eyebrow {
@@ -1529,13 +1685,19 @@
     .hero {
       padding: 70px 16px 0 !important;
       min-height: 100vh !important;
-      background: url('billy-david-hero.jpg') center top / cover no-repeat !important;
-      background-color: #0a0a14 !important;
+      background: #020103 !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: flex-end !important;
       align-items: center !important;
     }
+    /* On mobile: hide galaxy bg + cutouts, use composite photo instead */
+    .hero-galaxy-bg {
+      background: url('billy-david-hero.jpg') center top / cover no-repeat !important;
+      opacity: 1 !important;
+    }
+    .hero-sunray { display: none; }
+    .hero-figure { display: none !important; }
     .hero-text-wrap {
       padding: 80px 20px 28px !important;
       margin-top: auto;
@@ -1652,7 +1814,13 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><img src="gsic-logo.avif" alt="GSIC" style="height:44px;width:auto;display:block;" /></div>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:10px;">
+    <img src="gsic-logo.avif" alt="GSIC" style="height:44px;width:auto;display:block;flex-shrink:0;" />
+    <div class="nav-brand-text">
+      <div class="nav-brand-top">Galactic Spiritual</div>
+      <div class="nav-brand-bottom">Informers Connection</div>
+    </div>
+  </div>
   <div class="hamburger" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('open');">
     <span></span><span></span><span></span>
   </div>
@@ -1667,6 +1835,20 @@
 
 <!-- HERO -->
 <section class="hero">
+  <!-- bg layers -->
+  <div class="hero-galaxy-bg"></div>
+  <div class="hero-sunray"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- cutout figures -->
+  <div class="hero-figure hero-figure-billy">
+    <img src="billy-carson-cutout.png" alt="Billy Carson" />
+  </div>
+  <div class="hero-figure hero-figure-david">
+    <img src="david-icke-cutout.png" alt="David Icke" />
+  </div>
+
+  <!-- text content -->
   <div class="hero-text-wrap">
     <p class="hero-eyebrow">GSIC 2026 — Eastbourne, England · September 10th–12th</p>
     <h1 class="hero-headline">The Truth They<br><span class="accent">Tried To Hide</span></h1>
