@@ -1689,12 +1689,12 @@
     .nav-links.open { display: flex; }
     .hamburger { display: flex; }
     .hero {
-      padding: 70px 16px 0 !important;
+      padding: 80px 16px 20px !important;
       min-height: 100vh !important;
       background: #020103 !important;
       display: flex !important;
       flex-direction: column !important;
-      justify-content: flex-end !important;
+      justify-content: flex-start !important;
       align-items: center !important;
     }
     /* MOBILE: galaxy eye full bg, cutout PNGs on top, nothing else */
@@ -1714,23 +1714,24 @@
       left: -5vw !important;
       width: 52vw !important;
       z-index: 3 !important;
+      bottom: 0 !important;
     }
     .hero-figure-david {
       right: -5vw !important;
       width: 52vw !important;
       z-index: 3 !important;
+      bottom: 0 !important;
     }
-    .hero-figure img {
-      filter: none !important;
-    }
+    .hero-figure img { filter: none !important; }
     .hero-text-wrap {
-      padding: 80px 20px 28px !important;
-      margin-top: auto;
-      margin-bottom: 0;
+      padding: 20px 20px 28px !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
       background: transparent !important;
       border-radius: 0 !important;
       max-width: 100% !important;
       width: 100%;
+      z-index: 6 !important;
     }
     .hero::after { display: none !important; }
     .hero-text-wrap { z-index: 6 !important; }
