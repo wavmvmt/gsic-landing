@@ -1700,7 +1700,7 @@
     /* On mobile: galaxy eye stays behind, composite photo sits on top as blend */
     .hero-galaxy-bg {
       background: url('hero-galaxy-eye.png') center center / cover no-repeat !important;
-      opacity: 0.4 !important;
+      opacity: 0.85 !important;
       filter: none !important;
     }
     .hero-composite {
@@ -1709,10 +1709,11 @@
       inset: 0;
       background: url('billy-david-hero.jpg') center top / cover no-repeat;
       opacity: 1;
+      mix-blend-mode: lighten;
       z-index: 2;
       pointer-events: none;
     }
-    .hero-sunray { display: none; }
+    .hero-sunray { display: block !important; z-index: 3 !important; }
     .hero-overlay { display: none !important; }
     .hero-figure { display: none !important; }
     .hero-text-wrap {
