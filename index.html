@@ -285,10 +285,11 @@
   /* Layer 1: Galaxy eye background */
   .hero-galaxy-bg {
     position: absolute;
-    inset: 0;
+    inset: -20px; /* compensate for blur edge */
     background: url('hero-bg.jpg') center center / cover no-repeat;
-    opacity: 0.55;
+    opacity: 0.6;
     z-index: 0;
+    filter: blur(18px) brightness(0.75);
   }
 
   /* Layer 2: Sunray burst from center */
