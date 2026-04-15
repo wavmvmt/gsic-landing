@@ -29,19 +29,53 @@
   /* ── CUSTOM CURSOR ── */
   .cursor-orb {
     position: fixed;
-    width: 72px;
-    height: 72px;
+    width: 44px;
+    height: 44px;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
     transition: transform 0.2s, filter 0.3s;
-    filter: drop-shadow(0 0 10px rgba(212,175,55,0.7)) drop-shadow(0 0 25px rgba(212,175,55,0.35));
+    filter: drop-shadow(0 0 6px rgba(212,175,55,0.7)) drop-shadow(0 0 14px rgba(212,175,55,0.35));
   }
 
   .cursor-orb svg {
     width: 100%;
     height: 100%;
     transition: filter 0.3s;
+  }
+
+  .cursor-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(1,4,21,0.85);
+    border: 1.5px solid #D4AF37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cursor-logo-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+    border-radius: 50%;
+  }
+
+  .cursor-label {
+    position: relative;
+    z-index: 2;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #D4AF37;
+    line-height: 1;
+    text-shadow: 0 0 6px rgba(1,4,21,0.9);
   }
 
   /* On light backgrounds: shift to vibrant deep purple/blue */
@@ -1587,7 +1621,12 @@
 <body>
 
 <!-- CUSTOM CURSOR -->
-<div class="cursor-orb" id="cursor-orb"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" fill="rgba(1,4,21,0.85)" stroke="#D4AF37" stroke-width="1.5"/><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(212,175,55,0.25)" stroke-width="0.5"/><text x="32" y="38" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" letter-spacing="1" fill="#D4AF37">GSIC</text></svg></div>
+<div class="cursor-orb" id="cursor-orb">
+  <div class="cursor-inner">
+    <img src="gsic-logo.avif" alt="" class="cursor-logo-bg" />
+    <span class="cursor-label">GSIC</span>
+  </div>
+</div>
 <div id="cursor-trails"></div>
 
 <!-- EARTH VIDEO BACKGROUND (speakers onwards) -->
@@ -1613,7 +1652,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><span class="g">G</span><span class="sic">SIC</span></div>
+  <div class="nav-logo"><img src="gsic-logo.avif" alt="GSIC" style="height:44px;width:auto;display:block;" /></div>
   <div class="hamburger" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('open');">
     <span></span><span></span><span></span>
   </div>
