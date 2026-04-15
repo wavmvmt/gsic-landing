@@ -1709,7 +1709,9 @@
       inset: 0;
       background: url('billy-david-hero.jpg') center top / cover no-repeat;
       opacity: 1;
-      mix-blend-mode: lighten;
+      mix-blend-mode: normal;
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 85%);
+      mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 85%);
       z-index: 2;
       pointer-events: none;
     }
