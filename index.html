@@ -1697,11 +1697,13 @@
       justify-content: flex-end !important;
       align-items: center !important;
     }
-    /* On mobile: galaxy eye stays behind, composite photo sits on top as blend */
+    /* MOBILE HERO: composite photo full opacity on top, galaxy eye fades in only bottom half */
     .hero-galaxy-bg {
-      background: url('hero-galaxy-eye.png') center center / cover no-repeat !important;
-      opacity: 0.85 !important;
+      background: url('hero-galaxy-eye.png') center bottom / cover no-repeat !important;
+      opacity: 1 !important;
       filter: none !important;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 70%, black 100%) !important;
+      mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 70%, black 100%) !important;
     }
     .hero-composite {
       display: block !important;
@@ -1710,12 +1712,17 @@
       background: url('billy-david-hero.jpg') center top / cover no-repeat;
       opacity: 1;
       mix-blend-mode: normal;
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 85%);
-      mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 85%);
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
       z-index: 2;
       pointer-events: none;
     }
-    .hero-sunray { display: block !important; z-index: 3 !important; }
+    .hero-sunray {
+      display: block !important;
+      z-index: 3 !important;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 45%, black 70%) !important;
+      mask-image: linear-gradient(to bottom, transparent 0%, transparent 45%, black 70%) !important;
+    }
     .hero-overlay { display: none !important; }
     .hero-figure { display: none !important; }
     .hero-text-wrap {
