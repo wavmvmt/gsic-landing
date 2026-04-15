@@ -369,6 +369,11 @@
     pointer-events: none;
   }
 
+  /* Mobile-only composite layer — hidden on desktop */
+  .hero-composite {
+    display: none;
+  }
+
   /* Layer 4: Billy cutout — left side */
   .hero-figure {
     position: absolute;
@@ -1692,10 +1697,21 @@
       justify-content: flex-end !important;
       align-items: center !important;
     }
-    /* On mobile: hide galaxy bg + cutouts, use composite photo instead */
+    /* On mobile: galaxy eye stays behind, composite photo sits on top as blend */
     .hero-galaxy-bg {
-      background: url('billy-david-hero.jpg') center top / cover no-repeat !important;
-      opacity: 1 !important;
+      background: url('hero-galaxy-eye.png') center center / cover no-repeat !important;
+      opacity: 0.55 !important;
+      filter: none !important;
+    }
+    .hero-composite {
+      display: block !important;
+      position: absolute;
+      inset: 0;
+      background: url('billy-david-hero.jpg') center top / cover no-repeat;
+      mix-blend-mode: normal;
+      opacity: 0.88;
+      z-index: 2;
+      pointer-events: none;
     }
     .hero-sunray { display: none; }
     .hero-overlay { display: none !important; }
@@ -1715,10 +1731,10 @@
       bottom: 0; left: 0; right: 0;
       height: 55%;
       background: linear-gradient(to top, rgba(6,8,20,0.92) 0%, rgba(6,8,20,0.7) 30%, rgba(6,8,20,0.3) 65%, transparent 100%);
-      z-index: 1;
+      z-index: 4;
       pointer-events: none;
     }
-    .hero-text-wrap { z-index: 2 !important; }
+    .hero-text-wrap { z-index: 6 !important; }
     .hero-eyebrow { font-size: 13px !important; letter-spacing: 3px !important; margin-bottom: 10px !important; }
     .hero-headline { font-size: clamp(32px, 8vw, 56px) !important; }
     .topic-content { padding: 40px 24px; max-width: 100%; background: rgba(1,4,21,0.4) !important; }
@@ -1841,6 +1857,7 @@
   <div class="hero-galaxy-bg"></div>
   <div class="hero-sunray"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-composite"></div>
 
   <!-- cutout figures -->
   <div class="hero-figure hero-figure-billy">
