@@ -1697,32 +1697,27 @@
       justify-content: flex-end !important;
       align-items: center !important;
     }
-    /* MOBILE HERO: composite photo full opacity on top, galaxy eye fades in only bottom half */
+    /* MOBILE: galaxy eye full bg, composite fully on top, nothing else */
     .hero-galaxy-bg {
-      background: url('hero-galaxy-eye.png') center bottom / cover no-repeat !important;
+      background: url('hero-galaxy-eye.png') center center / cover no-repeat !important;
       opacity: 1 !important;
       filter: none !important;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 70%, black 100%) !important;
-      mask-image: linear-gradient(to bottom, transparent 0%, transparent 40%, black 70%, black 100%) !important;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
     }
     .hero-composite {
       display: block !important;
       position: absolute;
       inset: 0;
       background: url('billy-david-hero.jpg') center top / cover no-repeat;
-      opacity: 1;
-      mix-blend-mode: normal;
+      opacity: 1 !important;
+      mix-blend-mode: screen !important;
       -webkit-mask-image: none !important;
       mask-image: none !important;
       z-index: 2;
       pointer-events: none;
     }
-    .hero-sunray {
-      display: block !important;
-      z-index: 3 !important;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 45%, black 70%) !important;
-      mask-image: linear-gradient(to bottom, transparent 0%, transparent 45%, black 70%) !important;
-    }
+    .hero-sunray { display: none !important; }
     .hero-overlay { display: none !important; }
     .hero-figure { display: none !important; }
     .hero-text-wrap {
@@ -1734,15 +1729,7 @@
       max-width: 100% !important;
       width: 100%;
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 35%;
-      background: linear-gradient(to top, rgba(6,8,20,0.95) 0%, rgba(6,8,20,0.6) 50%, transparent 100%);
-      z-index: 4;
-      pointer-events: none;
-    }
+    .hero::after { display: none !important; }
     .hero-text-wrap { z-index: 6 !important; }
     .hero-eyebrow { font-size: 13px !important; letter-spacing: 3px !important; margin-bottom: 10px !important; }
     .hero-headline { font-size: clamp(32px, 8vw, 56px) !important; }
